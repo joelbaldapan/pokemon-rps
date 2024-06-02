@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+
+<script>
+  let humanScore = 0;
+  let compScore = 0;
+
+  function getSymbol(num) {
+    num = num.toString();
+    num = num.replace("0", "💎");
+    num = num.replace("1", "📃");
+    num = num.replace("2", "✂️");
+    return num;
+  }
+
+  function getCompChoice() {
+    let choice = Math.floor(Math.random() * 3);
+    console.log(`Computer chose ${getSymbol(choice)}`);
+    return choice;
+  }
+
+  function getHumanChoice() {
+    let choice = prompt("What is your choice?\n0 = 💎 || 1 = 📃 || 2 = ✂️");
+    if (choice === "0" || choice === "1" || choice === "2") {
+      console.log(`You chose ${getSymbol(choice)}`);
+    } else {
+      choice = 0
+      console.log(`Invalid input... Automatically choosing: ${getSymbol(choice)}`);
+    }
+    return choice;
+  }
+
+  // 0 = ROCK
+  // 1 = PAPER
+  // 2 = SCISSORS
+
+  function playRound(humanChoice, compChoice) {
+    humanChoice = Number(humanChoice);
+    compChoice = Number(compChoice);
+
+    console.log("---FIGHT!---");
+    // Draw
+    if (humanChoice == compChoice) {
+      console.log("So... It's a tie!");
+    }
+    // You win! (R vs S; P vs R; S vs P)
+    else if ((humanChoice === 0 && compChoice === 2) ||
+      (humanChoice === 1 && compChoice === 0) ||
+      (humanChoice === 2 && compChoice === 1)) {
+      console.log("So... You win!")
+      humanScore++
+    }
+    // Computer wins!
+    else {
+      console.log("So... Computer wins!");
+      compScore++
+    }
+    return;
+  }
+
+  let humanSelection;
+  let compSelection;
+  let win = prompt("❓How many games do you want to play?");
+
+  console.log(`Playing ${win} games...`);
+
+  while (humanScore < win && compScore < win) {
+
+    humanSelection = getHumanChoice();
+    compSelection = getCompChoice();
+
+    playRound(humanSelection, compSelection);
+    console.log("Current scores:");
+    console.log(`🧑 Human: ${humanScore}`);
+    console.log(`🖥️ Computer: ${compScore}`);
+    console.log("-----------");
+    console.log("");
+  }
+
+  if (humanScore > compScore) {
+    console.log("🏆Congratulations! You win!🏆");
+    prompt("🏆Congratulations! You win!🏆")
+  } else {
+    console.log("😢Too bad! You lose!😢");
+    prompt("😢Too bad! You lose!😢")
+  }
+</script>
