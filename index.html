@@ -8,93 +8,103 @@
 </head>
 
 <body>
+  <h1>Human: 0 | Computer: 0</h1>
+  <button id="rock">Rock 💎</button>
+  <button id="paper">Paper 📃</button>
+  <button id="scissors">Scissors ✂️</button>
+  <p id="select">Human vs. Computer</p>
+  <p id="status">Results:</p>
+
+  <script>
+    let humanScore = 0;
+    let compScore = 0;
+
+    //Get Symbol
+    function getSymbol(num) {
+      num = num.toString();
+      num = num.replace("0", "💎");
+      num = num.replace("1", "📃");
+      num = num.replace("2", "✂️");
+      return num;
+    }
+
+    // Get Computer Choice
+    function getCompChoice() {
+      return choice = Math.floor(Math.random() * 3);
+    }
+
+    // 0 = ROCK
+    // 1 = PAPER
+    // 2 = SCISSORS
+
+    // Play Round
+    function playRound(humanChoice) {
+      const scores = document.querySelector('h1');
+      const selection = document.getElementById('select');
+      const results = document.getElementById('status');
+
+      const compChoice = getCompChoice();
+
+      // Draw
+      if (humanChoice == compChoice) {
+        results.textContent = "Results: It's a draw!";
+      }
+      // You win! (R vs S; P vs R; S vs P)
+      else if (
+        (humanChoice === 0 && compChoice === 2) ||
+        (humanChoice === 1 && compChoice === 0) ||
+        (humanChoice === 2 && compChoice === 1)) {
+        results.textContent = "Results: You win!";
+        humanScore++
+      }
+      // Computer wins!
+      else {
+        results.textContent = "Results: Computer wins!";
+        compScore++
+      }
+
+      // Show Results
+      selection.textContent = `Human: ${getSymbol(humanChoice)} vs. Computer: ${getSymbol(compChoice)}`
+      scores.textContent = `Human: ${humanScore} | Computer: ${compScore}`
+
+      return;
+    }
+
+    // Initialize
+    let humanSelection;
+    let compSelection;
+    let win = 5;
+
+    const rockBtn = document.getElementById('rock');
+    const paperBtn = document.getElementById('paper');
+    const scissorsBtn = document.getElementById('scissors');
+
+    rockBtn.addEventListener('click', () => {
+      playRound(0)
+    });
+
+    paperBtn.addEventListener('click', () => {
+      playRound(1)
+    });
+
+    scissorsBtn.addEventListener('click', () => {
+      playRound(2)
+    });
+
+    // Game Done!
+    if (humanScore >= win || compScore >= win) {
+      if (humanScore > compScore) {
+        // YOU WIN!
+        console.log("🏆Congratulations! You win!🏆");
+        prompt("🏆Congratulations! You win!🏆")
+      } else {
+        // YOU LOSE.
+        console.log("😢Too bad! You lose!😢");
+        prompt("😢Too bad! You lose!😢")
+      }
+    }
+  </script>
 
 </body>
 
 </html>
-
-
-<script>
-  let humanScore = 0;
-  let compScore = 0;
-
-  function getSymbol(num) {
-    num = num.toString();
-    num = num.replace("0", "💎");
-    num = num.replace("1", "📃");
-    num = num.replace("2", "✂️");
-    return num;
-  }
-
-  function getCompChoice() {
-    let choice = Math.floor(Math.random() * 3);
-    console.log(`Computer chose ${getSymbol(choice)}`);
-    return choice;
-  }
-
-  function getHumanChoice() {
-    let choice = prompt("What is your choice?\n0 = 💎 || 1 = 📃 || 2 = ✂️");
-    if (choice === "0" || choice === "1" || choice === "2") {
-      console.log(`You chose ${getSymbol(choice)}`);
-    } else {
-      choice = 0
-      console.log(`Invalid input... Automatically choosing: ${getSymbol(choice)}`);
-    }
-    return choice;
-  }
-
-  // 0 = ROCK
-  // 1 = PAPER
-  // 2 = SCISSORS
-
-  function playRound(humanChoice, compChoice) {
-    humanChoice = Number(humanChoice);
-    compChoice = Number(compChoice);
-
-    console.log("---FIGHT!---");
-    // Draw
-    if (humanChoice == compChoice) {
-      console.log("So... It's a tie!");
-    }
-    // You win! (R vs S; P vs R; S vs P)
-    else if ((humanChoice === 0 && compChoice === 2) ||
-      (humanChoice === 1 && compChoice === 0) ||
-      (humanChoice === 2 && compChoice === 1)) {
-      console.log("So... You win!")
-      humanScore++
-    }
-    // Computer wins!
-    else {
-      console.log("So... Computer wins!");
-      compScore++
-    }
-    return;
-  }
-
-  let humanSelection;
-  let compSelection;
-  let win = prompt("❓How many games do you want to play?");
-
-  console.log(`Playing ${win} games...`);
-
-  while (humanScore < win && compScore < win) {
-
-    humanSelection = getHumanChoice();
-    compSelection = getCompChoice();
-
-    playRound(humanSelection, compSelection);
-    console.log("Current scores:");
-    console.log(`🧑 Human: ${humanScore}`);
-    console.log(`🖥️ Computer: ${compScore}`);
-    console.log("-----------");
-    console.log("");
-  }
-
-  if (humanScore > compScore) {
-    console.log("🏆Congratulations! You win!🏆");
-    prompt("🏆Congratulations! You win!🏆")
-  } else {
-    console.log("😢Too bad! You lose!😢");
-    prompt("😢Too bad! You lose!😢")
-  }
-</script>
