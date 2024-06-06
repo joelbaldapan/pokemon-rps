@@ -5,106 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
-  <h1>Human: 0 | Computer: 0</h1>
-  <button id="rock">Rock 💎</button>
-  <button id="paper">Paper 📃</button>
-  <button id="scissors">Scissors ✂️</button>
+  <h1>Rock Paper Scissors</h1>
+
+  <div id="console">
+
+    <!-- Battle contains sprites -->
+    <div class="battle">
+      <img id="scene" src="images/scenes/BackgroundShowdown.png" alt="grass bg">
+      <img id="player" src="images/pokemons/Lucario.gif" alt="squirtle">
+      <img id="computer" src="images/pokemons/Charizard.gif" alt="bulbasaur">
+    </div>
+
+    <!-- Interact contains textboxes and choice buttons -->
+    <div class="interact">
+      <div id="textbox"></div>
+
+      <div class="choices">
+        <button id="rock">Rock 💎</button>
+        <button id="paper">Paper 📃</button>
+        <button id="scissors">Scissors ✂️</button>
+        <button id="status">Status 🔃</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <h2>Human: 0 | Computer: 0</h2>
+
   <p id="select">Human vs. Computer</p>
-  <p id="status">Results:</p>
-
-  <script>
-    let humanScore = 0;
-    let compScore = 0;
-
-    //Get Symbol
-    function getSymbol(num) {
-      num = num.toString();
-      num = num.replace("0", "💎");
-      num = num.replace("1", "📃");
-      num = num.replace("2", "✂️");
-      return num;
-    }
-
-    // Get Computer Choice
-    function getCompChoice() {
-      return choice = Math.floor(Math.random() * 3);
-    }
-
-    // 0 = ROCK
-    // 1 = PAPER
-    // 2 = SCISSORS
-
-    // Play Round
-    function playRound(humanChoice) {
-      const scores = document.querySelector('h1');
-      const selection = document.getElementById('select');
-      const results = document.getElementById('status');
-
-      const compChoice = getCompChoice();
-
-      // Draw
-      if (humanChoice == compChoice) {
-        results.textContent = "Results: It's a draw!";
-      }
-      // You win! (R vs S; P vs R; S vs P)
-      else if (
-        (humanChoice === 0 && compChoice === 2) ||
-        (humanChoice === 1 && compChoice === 0) ||
-        (humanChoice === 2 && compChoice === 1)) {
-        results.textContent = "Results: You win!";
-        humanScore++
-      }
-      // Computer wins!
-      else {
-        results.textContent = "Results: Computer wins!";
-        compScore++
-      }
-
-      // Show Results
-      selection.textContent = `Human: ${getSymbol(humanChoice)} vs. Computer: ${getSymbol(compChoice)}`
-      scores.textContent = `Human: ${humanScore} | Computer: ${compScore}`
-
-      return;
-    }
-
-    // Initialize
-    let humanSelection;
-    let compSelection;
-    let win = 5;
-
-    const rockBtn = document.getElementById('rock');
-    const paperBtn = document.getElementById('paper');
-    const scissorsBtn = document.getElementById('scissors');
-
-    rockBtn.addEventListener('click', () => {
-      playRound(0)
-    });
-
-    paperBtn.addEventListener('click', () => {
-      playRound(1)
-    });
-
-    scissorsBtn.addEventListener('click', () => {
-      playRound(2)
-    });
-
-    // Game Done!
-    if (humanScore >= win || compScore >= win) {
-      if (humanScore > compScore) {
-        // YOU WIN!
-        console.log("🏆Congratulations! You win!🏆");
-        prompt("🏆Congratulations! You win!🏆")
-      } else {
-        // YOU LOSE.
-        console.log("😢Too bad! You lose!😢");
-        prompt("😢Too bad! You lose!😢")
-      }
-    }
-  </script>
-
 </body>
 
 </html>
