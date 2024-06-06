@@ -1,0 +1,63 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #cacaca;
+}
+
+#console {
+    width: 85%;
+    max-width: 600px;
+    border: 25px solid #3b3d47;
+    border-radius: 20px;
+
+    display: grid;
+    box-sizing: border-box;
+    grid-template-rows: 1fr 0.4fr;
+
+}
+
+/* Inside battle area */
+.battle {
+    position: relative;
+}
+
+#scene {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+#player {
+    position: absolute;
+    width: 40%;
+    bottom: 0%;
+    left: 10%;
+}
+
+#computer {
+    position: absolute;
+    width: 28%;
+    top: 2%;
+    right: 10%;
+}
+
+/* Inside interact area */
+.interact {
+    display: flex;
+    z-index: 10;
+    height: 100%;
+    background-color: white;
+}
+
+#textbox {
+    flex: 1.3;
+}
+
+.choices {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
