@@ -14,7 +14,7 @@
 
   <div id="console">
 
-    <!-- Battle contains sprites -->
+    <!-- BATTLE contains sprites -->
     <div class="battle">
       <img id="scene" src="images/scenes/BackgroundShowdown.png" alt="grass bg">
 
@@ -34,17 +34,23 @@
       </div>
     </div>
 
-    <!-- Interact contains textboxes and choice buttons -->
+    <!-- INTERACT contains textboxes and choice buttons -->
     <div class="interact">
       <div id="textbox"></div>
 
       <div class="choices">
-        <button id="rock">💎 Rock</button>
-        <button id="paper">📃 Paper</button>
-        <button id="scissors">✂️ Scissors</button>
-        <button id="status">🔃 Status</button>
+        <button class="choiceBtn" id="rockBtn">🔥&ensp;Fire</button>
+        <button class="choiceBtn" id="paperBtn">🍃 Grass</button>
+        <button class="choiceBtn" id="scissorsBtn">🌊 Water</button>
+        <button class="choiceBtn" id="statusBtn">❓&ensp;Status</button>
       </div>
 
+    </div>
+
+    <!-- CONTROL contains audio and power button -->
+    <div class="control">
+      <button class="controlBtn" id="audioBtn">AUDIO</button>
+      <button class="controlBtn" id="powerBtn">START</button>
     </div>
 
   </div>

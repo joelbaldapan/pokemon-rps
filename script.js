@@ -3,9 +3,9 @@ const scores = document.querySelector('h2');
 const selection = document.getElementById('select');
 const results = document.getElementById('textbox');
 
-const rockBtn = document.getElementById('rock');
-const paperBtn = document.getElementById('paper');
-const scissorsBtn = document.getElementById('scissors');
+const rockBtn = document.getElementById('rockBtn');
+const paperBtn = document.getElementById('paperBtn');
+const scissorsBtn = document.getElementById('scissorsBtn');
 
 // INITIALIZE
 let humanScore = 0;
@@ -17,9 +17,9 @@ let win = 5;
 //Get Symbol
 function getSymbol(num) {
   num = num.toString();
-  num = num.replace("0", "💎");
-  num = num.replace("1", "📃");
-  num = num.replace("2", "✂️");
+  num = num.replace("0", "🔥");
+  num = num.replace("1", "🍃");
+  num = num.replace("2", "🌊");
   return num;
 }
 
