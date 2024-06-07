@@ -17,8 +17,21 @@
     <!-- Battle contains sprites -->
     <div class="battle">
       <img id="scene" src="images/scenes/BackgroundShowdown.png" alt="grass bg">
+
       <img id="player" src="images/pokemons/Lucario.gif" alt="squirtle">
       <img id="computer" src="images/pokemons/Charizard.gif" alt="bulbasaur">
+
+      <div class="p-info">
+        <span class="name">Lucario</span>
+        <span class="name level">40</span>
+        <img id="p-tag" src="images/UI/p-tag.png" alt="player tag">
+      </div>
+
+      <div class="c-info">
+        <span class="name">Charizard</span>
+        <span class="name level">40</span>
+        <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag">
+      </div>
     </div>
 
     <!-- Interact contains textboxes and choice buttons -->
@@ -37,7 +50,8 @@
   </div>
 
 
-
+  <!--audio used in game-->
+  <audio id="battle-music" src="audios/battle-with-wild-pokemon.mp3" autoplay loop></audio>
 
   <h2>Human: 0 | Computer: 0</h2>
 
