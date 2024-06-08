@@ -137,6 +137,48 @@ body {
     right: 14%
 }
 
+.healthBar {
+    position: absolute;
+    border: 0.12em solid #151515;
+    border-radius: 0.3em;
+    background-color: #39c440;
+
+    width: 6.1em;
+    height: 0.51em;
+    top: 59%;
+    transition: width 0.5s;
+}
+
+#p-healthBar {
+    left: 42.5%;
+}
+
+#c-healthBar {
+    left: 32.5%;
+}
+
+.health {
+    position: absolute;
+    color: #fff;
+    display: inline-block;
+    top: 88%;
+    font-size: 1.3em;
+    font-weight: 550;
+    font-style: italic;
+    text-shadow:
+        0.07em 0.07em 0 #000,
+        -0.07em 0.07em 0 #000,
+        -0.07em -0.07em 0 #000,
+        0.07em -0.07em 0 #000;
+}
+
+#p-health {
+    left: 53%;
+}
+
+#p-healthTotal {
+    left: 72%;
+}
 
 
 /* -------------------- */
@@ -250,12 +292,12 @@ button:disabled {}
 /* ------------------ */
 
 .start-anim#player {
-    animation: p-moveIn 1.5s;
+    animation: p-moveIn 1s;
 }
 
 .start-anim#computer {
     transform: translateX(20em);
-    animation: c-moveIn 1.5s .3s forwards;
+    animation: c-moveIn 1s .3s forwards;
 }
 
 @keyframes p-moveIn {
@@ -303,7 +345,8 @@ button:disabled {}
     }
 
     50% {
-        transform: translateX(2em) translateY(0.2em);;
+        transform: translateX(2em) translateY(0.2em);
+        ;
     }
 
     100% {
@@ -355,5 +398,19 @@ button:disabled {}
     80% {
         transform: scale(1.2);
         filter: sepia(100%);
+    }
+}
+
+.renderBar {
+    animation: renderBar 0.5s;
+}
+
+@keyframes renderBar {
+    50% {
+        background-color: #ffffff;
+    }
+
+    100% {
+        background-color: #39c440;
     }
 }

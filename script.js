@@ -13,20 +13,43 @@ const scissorsBtn = document.getElementById('scissorsBtn');
 const audioBtn = document.getElementById('audioBtn');
 const powerBtn = document.getElementById('powerBtn');
 
+const pBar = document.getElementById('p-healthBar');
+const cBar = document.getElementById('c-healthBar');
+const pHealth = document.getElementById('p-health');
+const pHealthTotal = document.getElementById('p-healthTotal');
+
 // INITIALIZE
+let index = 0;
+let ongoingStart = false;
+let ongoingBattle = false;
+let playerScore = 0;
+let compScore = 0;
+let playerSelection;
+let compSelection;
+
+// SETTINGS
+const barWidth = 6.1;
+const baseHealth = 100;
 const pName = "Lucario";
 const cName = "Charizard";
 
-let index = 0;
+pHealth.textContent = baseHealth;
+pHealthTotal.textContent = baseHealth;
 
-let ongoingStart = false;
-let ongoingBattle = false;
-let humanScore = 0;
-let compScore = 0;
-let humanSelection;
-let compSelection;
-
+// NUMBER OF WINS
 let win = 5;
+
+// INITIALIZE
+function initialize() {
+  ongoingStart = true;
+  ongoingBattle = false;
+  playerScore = 0;
+  compScore = 0;
+
+  pHealth.textContent = baseHealth;
+  pHealthTotal.textContent = baseHealth;
+  renderHealth();
+}
 
 //Get Symbol
 function getSymbol(num) {
@@ -52,12 +75,14 @@ function displayText(text) {
 function nextLetter(text) {
   if (index < text.length) {
     toggleBattleBtns(true);
+    toggleControlBtns(true);
     textbox.textContent += text[index];
     index++;
     setTimeout(nextLetter, 20, text);
   } else {
     toggleBattleBtns(false);
     toggleControlBtns(false);
+    clearBar();
     if (ongoingBattle) {
       ongoingBattle = false;
       animBattle()
@@ -94,12 +119,39 @@ function animStart() {
   computer.classList.toggle("start-anim");
 }
 
+// Render Bar
+function renderBar(hurt) {
+  if (hurt === "player") {
+    pBar.classList.toggle("renderBar");
+  } else {
+    cBar.classList.toggle("renderBar");
+  }
+}
+
+function clearBar() {
+  pBar.classList.remove("renderBar");
+  cBar.classList.remove("renderBar");
+}
+
+function renderHealth() {
+  cBar.style.width = `${((1-(playerScore / win)) * barWidth).toFixed(1)}em`;
+  pBar.style.width = `${((1-(compScore / win)) * barWidth).toFixed(1)}em`;
+  pHealth.textContent = `${((1-(compScore / win)) * baseHealth).toFixed(0)}`;
+
+  if ((1 - (playerScore / win) < 0.2)) {
+    cBar.style.backgroundColor = "#c43939";
+  }
+  if ((1 - (compScore / win) < 0.2)) {
+    pBar.style.backgroundColor = "#c43939";
+  }
+}
+
 // 0 = ROCK
 // 1 = PAPER
 // 2 = SCISSORS
 
 // Play Round
-function playRound(humanChoice) {
+function playRound(playerChoice) {
   ongoingBattle = true;
   const compChoice = getCompChoice();
 
@@ -107,26 +159,27 @@ function playRound(humanChoice) {
   animBattle();
 
   // Draw
-  if (humanChoice == compChoice) {
-    displayText(`${pName} and ${cName} use ${getSymbol(humanChoice)}! So, it's a draw!`);
+  if (playerChoice == compChoice) {
+    displayText(`${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`);
   }
   // You win! (R vs S; P vs R; S vs P)
   else if (
-    (humanChoice === 0 && compChoice === 2) ||
-    (humanChoice === 1 && compChoice === 0) ||
-    (humanChoice === 2 && compChoice === 1)) {
-    displayText(`${pName} uses ${getSymbol(humanChoice)}, and ${cName} uses ${getSymbol(compChoice)}! So, you win!`);
-    humanScore++
+    (playerChoice === 0 && compChoice === 2) ||
+    (playerChoice === 1 && compChoice === 0) ||
+    (playerChoice === 2 && compChoice === 1)) {
+    displayText(`${pName} uses ${getSymbol(playerChoice)}, and ${cName} uses ${getSymbol(compChoice)}! So, you win!`);
+    renderBar("computer");
+    playerScore++
   }
   // Computer wins!
   else {
-    displayText(`${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(humanChoice)}! So, you lose!`);
+    displayText(`${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(playerChoice)}! So, you lose!`);
+    renderBar("player");
     compScore++
   }
 
   // Show Results
-  selection.textContent = `Human: ${getSymbol(humanChoice)} vs. Computer: ${getSymbol(compChoice)}`
-  scores.textContent = `Human: ${humanScore} | Computer: ${compScore}`
+  renderHealth()
 }
 
 
@@ -148,16 +201,17 @@ scissorsBtn.addEventListener('click', () => {
 
 // Power Button
 powerBtn.addEventListener('click', () => {
-  displayText("Welcome to Rock, Paper, Scissors: Pokemon Edition! First to five wins.")
-  
+  displayText(`Welcome to Rock, Paper, Scissors: Pokemon Edition! First to ${win} wins.`)
+
   ongoingStart = true;
   toggleControlBtns(true);
   animStart();
+  initialize();
 });
 
 // GAME DONE
-if (humanScore >= win || compScore >= win) {
-  if (humanScore > compScore) {
+if (playerScore >= win || compScore >= win) {
+  if (playerScore > compScore) {
     // YOU WIN!
     console.log("🏆Congratulations! You win!🏆");
     prompt("🏆Congratulations! You win!🏆")
