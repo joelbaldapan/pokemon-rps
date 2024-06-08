@@ -3,7 +3,7 @@
     src: url('fonts/pokemon-b-w.ttf') format('truetype');
 }
 
-/* #3b3d47 */
+
 :root {
     --pri-dark: #183e57;
     --pri-neutral: #22577a;
@@ -60,9 +60,11 @@ body {
 /* ------------------ */
 /* Inside battle area */
 /* ------------------ */
+
 .battle {
     position: relative;
     max-width: 100%;
+    overflow: hidden;
 }
 
 
@@ -75,7 +77,7 @@ body {
 #player {
     position: absolute;
     width: 40%;
-    bottom: 0%;
+    bottom: -3%;
     left: 10%;
 }
 
@@ -136,9 +138,11 @@ body {
 }
 
 
+
 /* -------------------- */
 /* Inside interact area */
 /* -------------------- */
+
 .interact {
     display: flex;
     z-index: 10;
@@ -150,7 +154,7 @@ body {
 #textbox {
     height: 100%;
     flex: 1.2;
-    padding: 2%;
+    padding: 3%;
     background-color: var(--pri-dark);
     border-color: var(--pri-light);
     border-radius: 0.5em;
@@ -193,16 +197,18 @@ button:active {
     transition-duration: 0s;
 }
 
+button:disabled {}
+
 #rockBtn {
     background-color: #cc5757;
 }
 
 #paperBtn {
-    background-color: #57cc5d;
+    background-color: #577ecc;
 }
 
 #scissorsBtn {
-    background-color: #577ecc;
+    background-color: #57cc5d;
 }
 
 #statusBtn {
@@ -212,12 +218,11 @@ button:active {
 /* ------------------- */
 /* Inside control area */
 /* ------------------- */
-
 .control {
     background-color: var(--pri-neutral);
     padding-top: 1em;
     display: flex;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
 }
 
 .controlBtn {
@@ -233,10 +238,122 @@ button:active {
     transition: filter 0.2s;
 }
 
-#audioBtn {
-    
+
+/* ---------- */
+/* ---------- */
+/* ANIMATIONS */
+/* ---------- */
+/* ---------- */
+
+/* ------------------ */
+/* Opening animations */
+/* ------------------ */
+
+.start-anim#player {
+    animation: p-moveIn 1.5s;
 }
 
-#power-btn {
+.start-anim#computer {
+    transform: translateX(20em);
+    animation: c-moveIn 1.5s .3s forwards;
+}
 
+@keyframes p-moveIn {
+    0% {
+        transform: translateX(-25em);
+    }
+
+    100% {
+        transform: translateX(0em);
+    }
+}
+
+@keyframes c-moveIn {
+    0% {
+        transform: translateX(20em);
+    }
+
+    100% {
+        transform: translateX(0em);
+    }
+}
+
+/* ----------------- */
+/* Battle animations */
+/* ----------------- */
+.battle-anim#player {
+    animation: p-attack 1s;
+}
+
+.battle-anim#computer {
+    animation: c-attack 1s;
+}
+
+@keyframes p-attack {
+    0% {
+        transform: translateY(0em);
+    }
+
+    10% {
+        transform: translateY(.3em);
+    }
+
+    25% {
+        transform: translateX(1em) translateY(-0.6em);
+    }
+
+    50% {
+        transform: translateX(2em) translateY(0.2em);;
+    }
+
+    100% {
+        transform: translateY(0em);
+    }
+}
+
+@keyframes c-attack {
+    0% {
+        transform: translateY(0em);
+    }
+
+    25% {
+        transform: translateX(-0.5em) translateY(-1em);
+    }
+
+    50% {
+        transform: translateX(-1em) translateY(0.3em);
+    }
+
+    100% {
+        transform: translateY(0em);
+    }
+}
+
+@keyframes tie {
+    50% {
+        transform: translateY(-0.5em);
+    }
+
+    70% {
+        transform: translateY(0.5em);
+    }
+
+    80% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes hurt {
+    50% {
+        transform: translateY(1em);
+    }
+
+    70% {
+        transform: rotate(20deg);
+    }
+
+    80% {
+        transform: scale(1.2);
+        filter: sepia(100%);
+    }
 }
