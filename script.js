@@ -22,6 +22,7 @@ const pHealthTotal = document.getElementById('p-healthTotal');
 
 // INITIALIZE
 let index = 0;
+let gameEnded = false;
 let playerScore = 0;
 let compScore = 0;
 let playerSelection;
@@ -81,6 +82,11 @@ function nextLetter(text) {
     toggleBattleBtns(false);
     toggleControlBtns(false);
     clearBar();
+
+    // Check Win
+    if (!gameEnded) {
+      checkWin();
+    }
   }
 }
 
@@ -100,30 +106,64 @@ function toggleControlBtns(toggle) {
 
 
 // Animation Toggles
-function animPlay(name) {
+function playAnim(name) {
   // Add Animation Class
   player.classList.add(name);
   computer.classList.add(name);
   pAttack.classList.add(name);
   cAttack.classList.add(name);
 
-  // Listen and remove Animation Class
+  // Listen and Remove Animation Class
+  const elements = [player, computer, pAttack, cAttack];
 
-  player.addEventListener('animationend', () => {
-    player.classList.remove(name);
+  elements.forEach(element => {
+    element.addEventListener('animationend', () => {
+      element.classList.remove(name);
+    });
   });
+}
 
-  computer.addEventListener('animationend', () => {
-    computer.classList.remove(name)
-  });
+// Function to remove class from element
+function removeClass(element, className) {
+  element.classList.remove(className);
+}
 
-  pAttack.addEventListener('animationend', () => {
-    player.classList.remove(name)
-  });
+// Function to play win animation
+function playWinAnim(winner) {
+  const classes = {
+    p: {
+      player: "win",
+      pAttack: "win",
+      computer: "lose",
+      cAttack: "lose"
+    },
+    c: {
+      player: "lose",
+      pAttack: "lose",
+      computer: "win",
+      cAttack: "win"
+    },
+    d: {
+      player: "draw",
+      pAttack: "draw",
+      computer: "draw",
+      cAttack: "draw"
+    }
+  };
 
-  cAttack.addEventListener('animationend', () => {
-    computer.classList.remove(name)
-  });
+  if (classes[winner]) {
+    player.classList.add(classes[winner].player);
+    pAttack.classList.add(classes[winner].pAttack);
+    computer.classList.add(classes[winner].computer);
+    cAttack.classList.add(classes[winner].cAttack);
+
+    // Add animationend event listener to each element to remove the class
+    [player, pAttack, computer, cAttack].forEach(element => {
+      element.addEventListener('animationend', () => {
+        removeClass(element, classes[winner][element.id]);
+      });
+    });
+  }
 }
 
 // Animation Names:
@@ -170,16 +210,17 @@ function renderHealth() {
 // 1 = PAPER
 // 2 = SCISSORS
 
-// Play Round
+// PLAY ROUND
 function playRound(playerChoice) {
   const compChoice = getCompChoice();
 
   // Play animation
-  animPlay("battle-anim");
+  playAnim("battle-anim");
 
   // Draw
   if (playerChoice == compChoice) {
     displayText(`${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`);
+    playWinAnim("d");
   }
   // You win! (R vs S; P vs R; S vs P)
   else if (
@@ -187,12 +228,14 @@ function playRound(playerChoice) {
     (playerChoice === 1 && compChoice === 0) ||
     (playerChoice === 2 && compChoice === 1)) {
     displayText(`${pName} uses ${getSymbol(playerChoice)}, and ${cName} uses ${getSymbol(compChoice)}! So, you win!`);
+    playWinAnim("p");
     renderBar("computer");
     playerScore++
   }
   // Computer wins!
   else {
     displayText(`${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(playerChoice)}! So, you lose!`);
+    playWinAnim("c");
     renderBar("player");
     compScore++
   }
@@ -227,20 +270,22 @@ powerBtn.addEventListener('click', () => {
   displayText(`Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`)
 
   toggleControlBtns(true);
-  animPlay("start-anim");
+  playAnim("start-anim");
   initialize();
 });
 
 
 // GAME DONE
-if (playerScore >= win || compScore >= win) {
-  if (playerScore > compScore) {
-    // YOU WIN!
-    console.log("🏆Congratulations! You win!🏆");
-    prompt("🏆Congratulations! You win!🏆")
-  } else {
-    // YOU LOSE.
-    console.log("😢Too bad! You lose!😢");
-    prompt("😢Too bad! You lose!😢")
+function checkWin() {
+  if (playerScore >= win || compScore >= win) {
+    toggleBattleBtns(true);
+    if (playerScore > compScore) {
+      // YOU WIN!
+      displayText(`Congraulations! You win!`);
+    } else {
+      // YOU LOSE.
+      displayText(`Womp womp. You lose!`);
+    }
+    gameEnded = true;
   }
-}
+};
