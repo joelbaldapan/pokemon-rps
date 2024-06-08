@@ -322,8 +322,7 @@ button:disabled {
 }
 
 .start-anim#computer {
-    transform: translateX(20em);
-    animation: c-moveIn 1s .3s forwards;
+    animation: c-moveIn 1.2s;
 }
 
 @keyframes p-moveIn {
@@ -338,6 +337,10 @@ button:disabled {
 
 @keyframes c-moveIn {
     0% {
+        transform: translateX(20em);
+    }
+
+    25% {
         transform: translateX(20em);
     }
 
