@@ -5,6 +5,8 @@ const textbox = document.getElementById('textbox');
 
 const player = document.getElementById('player');
 const computer = document.getElementById('computer');
+const pAttack = document.getElementById('p-attack');
+const cAttack = document.getElementById('c-attack');
 
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
@@ -37,7 +39,7 @@ pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 5;
+let win = 3;
 
 // INITIALIZE
 function initialize() {
@@ -109,15 +111,37 @@ function toggleControlBtns(toggle) {
 }
 
 // Animation Toggles
+function animWin(status) {
+  if (status === "d") {
+    player.classList.toggle("draw");
+    computer.classList.toggle("draw");
+    pAttack.classList.toggle("draw");
+    cAttack.classList.toggle("draw");
+  } else if (status === "p") {
+    player.classList.toggle("win");
+    computer.classList.toggle("lose");
+    pAttack.classList.toggle("win");
+    cAttack.classList.toggle("lose");
+  } else if (status === "c") {
+    player.classList.toggle("lose");
+    computer.classList.toggle("win");
+    pAttack.classList.toggle("lose");
+    cAttack.classList.toggle("win");
+  }
+}
+
 function animBattle() {
   player.classList.toggle("battle-anim");
   computer.classList.toggle("battle-anim");
+  pAttack.classList.toggle("battle-anim");
+  cAttack.classList.toggle("battle-anim");
 }
 
 function animStart() {
   player.classList.toggle("start-anim");
   computer.classList.toggle("start-anim");
 }
+
 
 // Render Bar
 function renderBar(hurt) {
@@ -138,11 +162,16 @@ function renderHealth() {
   pBar.style.width = `${((1-(compScore / win)) * barWidth).toFixed(1)}em`;
   pHealth.textContent = `${((1-(compScore / win)) * baseHealth).toFixed(0)}`;
 
+  // Render Red Bar
   if ((1 - (playerScore / win) < 0.2)) {
     cBar.style.backgroundColor = "#c43939";
+  } else {
+    cBar.style.backgroundColor = "#39c440";
   }
   if ((1 - (compScore / win) < 0.2)) {
     pBar.style.backgroundColor = "#c43939";
+  } else {
+    pBar.style.backgroundColor = "#39c440";
   }
 }
 
@@ -184,9 +213,8 @@ function playRound(playerChoice) {
 
 
 // EVENT LISTENERS
+
 // Attack Buttons
-
-
 rockBtn.addEventListener('click', () => {
   playRound(0)
 });
@@ -199,9 +227,14 @@ scissorsBtn.addEventListener('click', () => {
   playRound(2)
 });
 
+// Status Button
+statusBtn.addEventListener('click', () => {
+  displayText(`First to ${win} wins! ${pName} has ${playerScore} points, and ${cName} has ${compScore} points!`)
+});
+
 // Power Button
 powerBtn.addEventListener('click', () => {
-  displayText(`Welcome to Rock, Paper, Scissors: Pokemon Edition! First to ${win} wins.`)
+  displayText(`Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`)
 
   ongoingStart = true;
   toggleControlBtns(true);

@@ -79,6 +79,7 @@ body {
     width: 40%;
     bottom: -3%;
     left: 10%;
+    z-index: 10;
 }
 
 #computer {
@@ -180,6 +181,26 @@ body {
     left: 72%;
 }
 
+.attack {
+    position: absolute;
+    transform-origin: center;
+    opacity: 0;
+}
+
+#p-attack {
+    z-index: 3;
+    width: 7em;
+    bottom: 0%;
+    left: 28%;
+}
+
+#c-attack {
+    width: 6em;
+    top: 15%;
+    right: 20%;
+    z-index: 1;
+}
+
 
 /* -------------------- */
 /* Inside interact area */
@@ -239,7 +260,12 @@ button:active {
     transition-duration: 0s;
 }
 
-button:disabled {}
+button:disabled {
+    cursor: not-allowed;
+    color: rgba(0, 0, 0, 0.718);
+    opacity: 1;
+}
+
 
 #rockBtn {
     background-color: #cc5757;
@@ -401,16 +427,141 @@ button:disabled {}
     }
 }
 
+/* DRAW */
+.battle-anim.draw#p-attack {
+    animation: p-drawAttack 1s;
+}
+
+.battle-anim.draw#c-attack {
+    animation: c-drawAttack 1s;
+}
+
+/* PLAYER WINS */
+.battle-anim.win#p-attack {
+    animation: p-winAttack 1s;
+}
+
+.battle-anim.lose#c-attack {
+    animation: c-loseAttack 1s;
+}
+
+/* COMP WINS */
+.battle-anim.lose#p-attack {
+    animation: p-loseAttack 1s;
+}
+
+.battle-anim.win#c-attack {
+    animation: c-winAttack 1s;
+}
+
+@keyframes p-drawAttack {
+    50% {
+        transform: scale(0.8) translateY(-4em) translateX(6em);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.8) translateX(9em);
+        opacity: 0;
+    }
+}
+
+@keyframes c-drawAttack {
+    50% {
+        transform: scale(1) translateY(4em) translateX(-6em);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1) translateX(-9em);
+        opacity: 0;
+    }
+}
+
+@keyframes p-winAttack {
+    50% {
+        transform: scale(0.8) translateY(-4em) translateX(6em);
+        opacity: 1;
+    }
+
+    65% {
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: scale(0.7) translateY(-12em) translateX(18em);
+        filter: brightness(3);
+        opacity: 0;
+    }
+}
+
+@keyframes c-loseAttack {
+    50% {
+        transform: scale(1) translateY(4em) translateX(-6em);
+        opacity: 1;
+    }
+
+    65% {
+        opacity: 1;
+        filter: brightness(0.5);
+    }
+
+    100% {
+        transform: scale(1) translateX(-9em);
+        filter: brightness(0);
+        opacity: 0;
+    }
+}
+
+@keyframes p-loseAttack {
+    50% {
+        transform: scale(0.8) translateY(-4em) translateX(6em);
+        opacity: 1;
+    }
+
+    65% {
+        opacity: 1;
+        filter: brightness(0.5);
+    }
+
+    100% {
+        transform: scale(0.8) translateX(9em);
+        filter: brightness(0);
+        opacity: 0;
+    }
+}
+
+@keyframes c-winAttack {
+    50% {
+        transform: scale(1) translateY(4em) translateX(-6em);
+        opacity: 1;
+    }
+
+    65% {
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: scale(1.6) translateY(6.5em) translateX(-9em);
+        filter: brightness(3);
+        opacity: 0;
+    }
+}
+
+
+
 .renderBar {
     animation: renderBar 0.5s;
 }
 
 @keyframes renderBar {
     50% {
-        background-color: #ffffff;
+        filter: brightness(3);
     }
 
     100% {
-        background-color: #39c440;
+        filter: brightness(1);
     }
 }
