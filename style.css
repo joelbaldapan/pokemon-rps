@@ -519,7 +519,7 @@ button:disabled {
     75% {
         transform-origin: bottom left;
         transform: translateY(2em) translateX(-2em) rotate(-10deg) scale(1.05);
-        filter: brightness(1.2);
+        filter: brightness(1.3);
     }
 
     100% {
@@ -547,7 +547,7 @@ button:disabled {
     75% {
         transform-origin: bottom right;
         transform: translateY(0.5em) translateX(1em) rotate(10deg) scale(0.95);
-        filter: brightness(1.2);
+        filter: brightness(1.3);
     }
 
     100% {
@@ -691,5 +691,32 @@ button:disabled {
 
     100% {
         filter: brightness(1);
+    }
+}
+
+/* FAINT */
+.faint#player {
+    animation: p-faint 1s forwards;
+}
+
+.faint#computer {
+    animation: c-faint 1s forwards;
+}
+
+@keyframes p-faint {
+    100% {
+        transform-origin: bottom left;
+        transform: translateY(4em) translateX(-2em) rotate(-20deg) scale(1.05);
+        filter: brightness(0);
+        opacity: 0;
+    }
+}
+
+@keyframes c-faint {
+    100% {
+        transform-origin: bottom right;
+        transform: translateY(1.5em) translateX(1em) rotate(15deg) scale(0.95);
+        filter: brightness(0);
+        opacity: 0;
     }
 }

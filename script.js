@@ -11,7 +11,6 @@ const cAttack = document.getElementById('c-attack');
 const pInfo = document.getElementsByClassName('p-info')[0];
 const cInfo = document.getElementsByClassName('c-info')[0];
 
-
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
 const scissorsBtn = document.getElementById('scissorsBtn');
@@ -26,6 +25,10 @@ const pBar = document.getElementById('p-healthBar');
 const cBar = document.getElementById('c-healthBar');
 const pHealth = document.getElementById('p-health');
 const pHealthTotal = document.getElementById('p-healthTotal');
+
+const winForm = document.getElementById('win-form');
+const inputArea = document.getElementById('input-area');
+
 
 // INITIALIZE
 let gameStarting = false;
@@ -53,7 +56,7 @@ pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 2;
+let win = 1;
 
 // INITIALIZE
 function initialize() {
@@ -61,28 +64,34 @@ function initialize() {
     gameEnded = false;
     gameOngoing = false;
     toggleBattleBtns(true);
-    audioPlayer.src = `audios/music/wildBattle-BW.mp3`
-    audioPlayer.pause();
+
+    // Remove animations and reset DOM
+    player.classList.remove("faint");
+    computer.classList.remove("faint");
     battleView.classList.remove("start-anim");
     powerBtn.style.backgroundColor = "#f6f2db";
     textbox.textContent = "";
+
+    // Reset audio
+    audioPlayer.src = `audios/music/wildBattle-BW.mp3`
+    audioPlayer.pause();
   } else {
     gameStarting = true;
     gameOngoing = true;
     playerScore = 0;
     compScore = 0;
 
+    // Initialize starting animation and audio
     powerBtn.style.backgroundColor = "#dbf6dc";
-    controlAudio();
     pHealth.textContent = baseHealth;
     pHealthTotal.textContent = baseHealth;
+    controlAudio();
     renderHealth();
 
     displayText(`${cName} challenges you to a battle! Go, ${pName}!`)
     setTimeout(displayText, 3000, `Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`);
     powerBtn.disabled = false; // Disable power buttons;
     playAnim("start-anim");
-    playStart("start-anim");
   }
 }
 
@@ -139,14 +148,17 @@ function checkWin() {
     toggleBattleBtns(true);
     if (playerScore > compScore) {
       // YOU WIN!
+      computer.classList.add("faint");
       audioPlayer.src = `audios/music/victoryMusic.mp3`
-      displayText(`Congraulations! You win!`);
+      displayText(`${cName} fainted...Congraulations! You win!`);
     } else {
       // YOU LOSE.
-      audioPlayer.src = `audios/music/loseMusic.mp3`
-      displayText(`Womp womp. You lose!`);
+      player.classList.add("faint");
+      audioPlayer.src = `audios/music/lostMusic.mp3`
+      displayText(`${pName} fainted... Womp womp. You lose!`);
     }
     audioPlayer.play();
+    playSFX("Faint-sfx");
     gameEnded = true;
   }
 };
@@ -384,3 +396,10 @@ function playHitSFX() {
     hitPlayer.play();
   }
 }
+
+// FORM SUBMISSION
+winForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  win = document.getElementById('num-wins').value;
+  // inputArea.style.display = 'none';
+});
