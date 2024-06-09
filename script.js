@@ -3,10 +3,11 @@ const scores = document.querySelector('h2');
 const selection = document.getElementById('select');
 const textbox = document.getElementById('textbox');
 
+const battleView = document.getElementsByClassName('battle')[0];
 const player = document.getElementById('player');
 const computer = document.getElementById('computer');
-const pAttack = document.getElementById('p-attack');
-const cAttack = document.getElementById('c-attack');
+const pAttack = document.getElementById('pAttack');
+const cAttack = document.getElementById('cAttack');
 
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
@@ -22,11 +23,14 @@ const pHealthTotal = document.getElementById('p-healthTotal');
 
 // INITIALIZE
 let index = 0;
+let gameStarting = false;
 let gameEnded = false;
+let gameOngoing = false;
 let playerScore = 0;
 let compScore = 0;
 let playerSelection;
 let compSelection;
+toggleBattleBtns(true);
 
 // SETTINGS
 const barWidth = 6.1;
@@ -40,14 +44,29 @@ pHealthTotal.textContent = baseHealth;
 // NUMBER OF WINS
 let win = 3;
 
+
 // INITIALIZE
 function initialize() {
-  playerScore = 0;
-  compScore = 0;
+  if (gameOngoing) {
+    gameOngoing = false;
+    toggleBattleBtns(true);
+    battleView.classList.remove("start-anim");
+    textbox.textContent = "";
+  } else {
+    gameStarting = true;
+    gameOngoing = true;
+    playerScore = 0;
+    compScore = 0;
 
-  pHealth.textContent = baseHealth;
-  pHealthTotal.textContent = baseHealth;
-  renderHealth();
+    pHealth.textContent = baseHealth;
+    pHealthTotal.textContent = baseHealth;
+    renderHealth();
+
+    displayText(`${cName} challenges you to a battle! Go, ${pName}!`)
+    setTimeout(displayText, 3000, `Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`);
+    toggleControlBtns(true);
+    playAnim("start-anim");
+  }
 }
 
 //Get Symbol
@@ -79,13 +98,14 @@ function nextLetter(text) {
     index++;
     setTimeout(nextLetter, 20, text);
   } else {
-    toggleBattleBtns(false);
-    toggleControlBtns(false);
-    clearBar();
-
-    // Check Win
-    if (!gameEnded) {
+    if (!gameEnded && !gameStarting) {
+      toggleBattleBtns(false);
       checkWin();
+    }
+    if (gameStarting) {
+      gameStarting = false;
+    } else {
+      toggleControlBtns(false);
     }
   }
 }
@@ -112,6 +132,7 @@ function playAnim(name) {
   computer.classList.add(name);
   pAttack.classList.add(name);
   cAttack.classList.add(name);
+  battleView.classList.add(name);
 
   // Listen and Remove Animation Class
   const elements = [player, computer, pAttack, cAttack];
@@ -125,6 +146,7 @@ function playAnim(name) {
 
 // Function to remove class from element
 function removeClass(element, className) {
+  console.log(element, className);
   element.classList.remove(className);
 }
 
@@ -157,7 +179,6 @@ function playWinAnim(winner) {
     computer.classList.add(classes[winner].computer);
     cAttack.classList.add(classes[winner].cAttack);
 
-    // Add animationend event listener to each element to remove the class
     [player, pAttack, computer, cAttack].forEach(element => {
       element.addEventListener('animationend', () => {
         removeClass(element, classes[winner][element.id]);
@@ -176,16 +197,17 @@ function playWinAnim(winner) {
 
 // Render Bar
 function renderBar(hurt) {
+  pBar.classList.remove("renderBar");
+  cBar.classList.remove("renderBar");
+
+  void pBar.offsetWidth;
+  void cBar.offsetWidth;
+
   if (hurt === "player") {
     pBar.classList.toggle("renderBar");
   } else {
     cBar.classList.toggle("renderBar");
   }
-}
-
-function clearBar() {
-  pBar.classList.remove("renderBar");
-  cBar.classList.remove("renderBar");
 }
 
 function renderHealth() {
@@ -267,10 +289,6 @@ statusBtn.addEventListener('click', () => {
 
 // Power Button
 powerBtn.addEventListener('click', () => {
-  displayText(`Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`)
-
-  toggleControlBtns(true);
-  playAnim("start-anim");
   initialize();
 });
 

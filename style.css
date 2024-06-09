@@ -57,6 +57,57 @@ body {
 
 }
 
+.battle::before {
+    content: "Press the START button to play/restart";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 20;
+
+    color: var(--pri-lighter);
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    background: var(--pri-dark);
+}
+
+.start-anim.battle::before {
+    animation: power-on 3.5s forwards ease-in-out;
+    animation-delay: 0;
+}
+
+@keyframes power-on {
+
+    0% {
+        content: "";
+        background-color: var(--pri-dark);
+        opacity: 1;
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        content: "";
+        background-color: #dcdcdc;
+        opacity: 0.8;
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90%,
+    100% {
+        background-color: #151515;
+        opacity: 0;
+    }
+}
+
 /* ------------------ */
 /* Inside battle area */
 /* ------------------ */
@@ -187,14 +238,14 @@ body {
     opacity: 0;
 }
 
-#p-attack {
+#pAttack {
     z-index: 3;
     width: 7em;
     bottom: 0%;
     left: 28%;
 }
 
-#c-attack {
+#cAttack {
     width: 6em;
     top: 15%;
     right: 20%;
@@ -318,15 +369,19 @@ button:disabled {
 /* ------------------ */
 
 .start-anim#player {
-    animation: p-moveIn 1s;
+    animation: p-moveIn 2s;
 }
 
 .start-anim#computer {
-    animation: c-moveIn 1.2s;
+    animation: c-moveIn 1s;
 }
 
 @keyframes p-moveIn {
     0% {
+        transform: translateX(-25em);
+    }
+
+    30% {
         transform: translateX(-25em);
     }
 
@@ -340,10 +395,6 @@ button:disabled {
         transform: translateX(20em);
     }
 
-    25% {
-        transform: translateX(20em);
-    }
-
     100% {
         transform: translateX(0em);
     }
@@ -353,14 +404,14 @@ button:disabled {
 /* Battle animations */
 /* ----------------- */
 .battle-anim#player {
-    animation: p-attack 1s;
+    animation: pAttack 1s;
 }
 
 .battle-anim#computer {
-    animation: c-attack 1s;
+    animation: cAttack 1s;
 }
 
-@keyframes p-attack {
+@keyframes pAttack {
     0% {
         transform: translateY(0em);
     }
@@ -383,7 +434,7 @@ button:disabled {
     }
 }
 
-@keyframes c-attack {
+@keyframes cAttack {
     0% {
         transform: translateY(0em);
     }
@@ -431,29 +482,29 @@ button:disabled {
 }
 
 /* DRAW */
-.battle-anim.draw#p-attack {
+.battle-anim.draw#pAttack {
     animation: p-drawAttack 1s;
 }
 
-.battle-anim.draw#c-attack {
+.battle-anim.draw#cAttack {
     animation: c-drawAttack 1s;
 }
 
 /* PLAYER WINS */
-.battle-anim.win#p-attack {
+.battle-anim.win#pAttack {
     animation: p-winAttack 1s;
 }
 
-.battle-anim.lose#c-attack {
+.battle-anim.lose#cAttack {
     animation: c-loseAttack 1s;
 }
 
 /* COMP WINS */
-.battle-anim.lose#p-attack {
+.battle-anim.lose#pAttack {
     animation: p-loseAttack 1s;
 }
 
-.battle-anim.win#c-attack {
+.battle-anim.win#cAttack {
     animation: c-winAttack 1s;
 }
 
