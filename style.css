@@ -76,7 +76,7 @@ body {
 }
 
 .start-anim.battle::before {
-    animation: power-on 3.5s forwards ease-in-out;
+    animation: power-on 3.2s forwards ease-in-out;
     animation-delay: 0;
 }
 
@@ -355,6 +355,10 @@ button:disabled {
     font-size: 1.4em;
     cursor: pointer;
     transition: filter 0.2s;
+}
+
+#audioBtn {
+    background-color: #bcefc5;
 }
 
 

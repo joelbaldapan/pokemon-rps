@@ -14,6 +14,7 @@ const paperBtn = document.getElementById('paperBtn');
 const scissorsBtn = document.getElementById('scissorsBtn');
 
 const audioBtn = document.getElementById('audioBtn');
+const audioPlayer = document.getElementById('battle-music');
 const powerBtn = document.getElementById('powerBtn');
 
 const pBar = document.getElementById('p-healthBar');
@@ -22,15 +23,16 @@ const pHealth = document.getElementById('p-health');
 const pHealthTotal = document.getElementById('p-healthTotal');
 
 // INITIALIZE
-let index = 0;
 let gameStarting = false;
 let gameEnded = false;
 let gameOngoing = false;
+let toggleAudio = true;
+
+let index = 0;
 let playerScore = 0;
 let compScore = 0;
 let playerSelection;
 let compSelection;
-toggleBattleBtns(true);
 
 // SETTINGS
 const barWidth = 6.1;
@@ -38,19 +40,48 @@ const baseHealth = 100;
 const pName = "Lucario";
 const cName = "Charizard";
 
+toggleBattleBtns(true);
+powerBtn.style.backgroundColor = "#f6f2db";
+audioBtn.style.backgroundColor = "#dbf6dc";
 pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 3;
+let win = 5;
 
+// Audio
+audioBtn.addEventListener('click', () => {
+  if (toggleAudio) {
+    toggleAudio = false;
+    audioBtn.style.backgroundColor = "#f6f2db";
+  } else {
+    toggleAudio = true;
+    audioBtn.style.backgroundColor = "#dbf6dc";
+  }
+
+  controlAudio();
+});
+
+function controlAudio() {
+  if (gameStarting) {
+    audioPlayer.currentTime = 0; // Reset audio to the beginning
+  }
+  if (toggleAudio && gameOngoing) {
+    audioPlayer.play();
+  } else {
+    audioPlayer.pause();
+  }
+
+}
 
 // INITIALIZE
 function initialize() {
   if (gameOngoing) {
     gameOngoing = false;
     toggleBattleBtns(true);
+    audioPlayer.pause();
     battleView.classList.remove("start-anim");
+    powerBtn.style.backgroundColor = "#f6f2db";
     textbox.textContent = "";
   } else {
     gameStarting = true;
@@ -58,13 +89,15 @@ function initialize() {
     playerScore = 0;
     compScore = 0;
 
+    powerBtn.style.backgroundColor = "#dbf6dc";
+    controlAudio();
     pHealth.textContent = baseHealth;
     pHealthTotal.textContent = baseHealth;
     renderHealth();
 
     displayText(`${cName} challenges you to a battle! Go, ${pName}!`)
     setTimeout(displayText, 3000, `Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`);
-    toggleControlBtns(true);
+    powerBtn.disabled = false; // Disable power buttons;
     playAnim("start-anim");
   }
 }
@@ -93,7 +126,7 @@ function displayText(text) {
 function nextLetter(text) {
   if (index < text.length) {
     toggleBattleBtns(true);
-    toggleControlBtns(true);
+    powerBtn.disabled = true;;
     textbox.textContent += text[index];
     index++;
     setTimeout(nextLetter, 20, text);
@@ -105,7 +138,7 @@ function nextLetter(text) {
     if (gameStarting) {
       gameStarting = false;
     } else {
-      toggleControlBtns(false);
+      powerBtn.disabled = false; // Enable power buttons
     }
   }
 }
