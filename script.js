@@ -15,6 +15,7 @@ const scissorsBtn = document.getElementById('scissorsBtn');
 
 const audioBtn = document.getElementById('audioBtn');
 const audioPlayer = document.getElementById('battle-music');
+const sfxPlayer = document.getElementById('sfx');
 const powerBtn = document.getElementById('powerBtn');
 
 const pBar = document.getElementById('p-healthBar');
@@ -78,82 +79,62 @@ function initialize() {
   }
 }
 
-//Get Symbol
-function getSymbol(num) {
-  num = num.toString();
-  num = num.replace("0", "Fire");
-  num = num.replace("1", "Water");
-  num = num.replace("2", "Grass");
-  return num;
-}
+// 0 = ROCK
+// 1 = PAPER
+// 2 = SCISSORS
 
-// Get Computer Choice
-function getCompChoice() {
-  return choice = Math.floor(Math.random() * 3);
-}
+// PLAY ROUND
+function playRound(playerChoice) {
+  const compChoice = getCompChoice();
 
-// Display Text on Textbox
-function displayText(text) {
-  textbox.textContent = "";
-  index = 0;
-  nextLetter(text);
-}
+  // RPS LOGIC
 
-function nextLetter(text) {
-  if (index < text.length) {
-    toggleBattleBtns(true);
-    powerBtn.disabled = true;;
-    textbox.textContent += text[index];
-    index++;
-    setTimeout(nextLetter, 25, text);
-  } else {
-    if (!gameStarting && !gameEnded) {
-      toggleBattleBtns(false);
-      checkWin();
-    }
-    if (gameStarting) {
-      gameStarting = false;
-    } else {
-      powerBtn.disabled = false; // Enable power buttons
-    }
+  // Draw
+  if (playerChoice == compChoice) {
+    displayText(`${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`);
+    playBattleAnim("d");
   }
+  // You win! (R vs S; P vs R; S vs P)
+  else if (
+    (playerChoice === 0 && compChoice === 2) ||
+    (playerChoice === 1 && compChoice === 0) ||
+    (playerChoice === 2 && compChoice === 1)) {
+    displayText(`${pName} uses ${getSymbol(playerChoice)}, and ${cName} uses ${getSymbol(compChoice)}! So, you win!`);
+    playBattleAnim("p");
+    renderBar("computer");
+    playerScore++
+  }
+  // Computer wins!
+  else {
+    displayText(`${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(playerChoice)}! So, you lose!`);
+    playBattleAnim("c");
+    renderBar("player");
+    compScore++
+  }
+
+  // Show Results, animations, audio
+  playAnim("battle-anim");
+  updateAttack(playerChoice, compChoice);
+  setTimeout(renderHealth, 500);
 }
 
+// GAME DONE
+function checkWin() {
+  if (playerScore >= win || compScore >= win) {
+    toggleBattleBtns(true);
+    if (playerScore > compScore) {
+      // YOU WIN!
+      displayText(`Congraulations! You win!`);
+    } else {
+      // YOU LOSE.
+      displayText(`Womp womp. You lose!`);
+    }
+    gameEnded = true;
+  }
+};
 
-// Toggle Buttons
-function toggleBattleBtns(toggle) {
-  rockBtn.disabled = toggle;
-  paperBtn.disabled = toggle;
-  scissorsBtn.disabled = toggle;
-  statusBtn.disabled = toggle;
-}
-
-// Animation Toggles
-function playAnim(name) {
-  // Add Animation Class
-  player.classList.add(name);
-  computer.classList.add(name);
-  pAttack.classList.add(name);
-  cAttack.classList.add(name);
-  battleView.classList.add(name);
-
-  // Listen and Remove Animation Class
-  const elements = [player, computer, pAttack, cAttack];
-
-  elements.forEach(element => {
-    element.addEventListener('animationend', () => {
-      element.classList.remove(name);
-    });
-  });
-}
-
-// Function to remove class from element
-function removeClass(element, className) {
-  element.classList.remove(className);
-}
-
-// Function to play win animation
-function playWinAnim(winner) {
+// Function to play battle animations
+function playBattleAnim(winner) {
   const classes = {
     p: {
       player: "win",
@@ -191,12 +172,96 @@ function playWinAnim(winner) {
   }
 }
 
+// Function to remove class from element
+function removeClass(element, className) {
+  element.classList.remove(className);
+}
+
 // Animation Names:
 // start-anim
 // battle-anim
 // draw
 // win
 // lose
+
+
+//Get Symbol
+function getSymbol(num) {
+  num = num.toString();
+  num = num.replace("0", "Fire");
+  num = num.replace("1", "Water");
+  num = num.replace("2", "Grass");
+  return num;
+}
+
+// Get Computer Choice
+function getCompChoice() {
+  return choice = Math.floor(Math.random() * 3);
+}
+
+
+// Display Text on Textbox
+function displayText(text) {
+  textbox.textContent = "";
+  index = 0;
+  nextLetter(text);
+}
+
+function nextLetter(text) {
+  if (index < text.length) {
+    toggleBattleBtns(true);
+    powerBtn.disabled = true;;
+    textbox.textContent += text[index];
+    index++;
+    setTimeout(nextLetter, 25, text);
+  } else {
+    if (!gameStarting && !gameEnded) {
+      toggleBattleBtns(false);
+      checkWin();
+    }
+    if (gameStarting) {
+      gameStarting = false;
+    } else {
+      powerBtn.disabled = false; // Enable power buttons
+    }
+  }
+}
+
+
+// Toggle Buttons
+function toggleBattleBtns(toggle) {
+  rockBtn.disabled = toggle;
+  paperBtn.disabled = toggle;
+  scissorsBtn.disabled = toggle;
+  statusBtn.disabled = toggle;
+}
+
+
+// Animation Toggles
+function playAnim(name) {
+  // Add Animation Class
+  player.classList.add(name);
+  computer.classList.add(name);
+  pAttack.classList.add(name);
+  cAttack.classList.add(name);
+  battleView.classList.add(name);
+
+  // Listen and Remove Animation Class
+  const elements = [player, computer, pAttack, cAttack];
+
+  elements.forEach(element => {
+    element.addEventListener('animationend', () => {
+      element.classList.remove(name);
+    });
+  });
+}
+
+
+// Update Attack Sprite
+function updateAttack(player, comp) {
+  pAttack.src = `images/attack/${player}.png`
+  cAttack.src = `images/attack/${comp}.png`
+}
 
 
 // Render Bar
@@ -213,6 +278,7 @@ function renderBar(hurt) {
     cBar.classList.toggle("renderBar");
   }
 }
+
 
 function renderHealth() {
   cBar.style.width = `${((1-(playerScore / win)) * barWidth).toFixed(1)}em`;
@@ -232,49 +298,6 @@ function renderHealth() {
   }
 }
 
-// 0 = ROCK
-// 1 = PAPER
-// 2 = SCISSORS
-
-// PLAY ROUND
-function playRound(playerChoice) {
-  const compChoice = getCompChoice();
-
-  // Play animation
-  playAnim("battle-anim");
-  updateAttack(playerChoice, compChoice);
-
-  // Draw
-  if (playerChoice == compChoice) {
-    displayText(`${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`);
-    playWinAnim("d");
-  }
-  // You win! (R vs S; P vs R; S vs P)
-  else if (
-    (playerChoice === 0 && compChoice === 2) ||
-    (playerChoice === 1 && compChoice === 0) ||
-    (playerChoice === 2 && compChoice === 1)) {
-    displayText(`${pName} uses ${getSymbol(playerChoice)}, and ${cName} uses ${getSymbol(compChoice)}! So, you win!`);
-    playWinAnim("p");
-    renderBar("computer");
-    playerScore++
-  }
-  // Computer wins!
-  else {
-    displayText(`${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(playerChoice)}! So, you lose!`);
-    playWinAnim("c");
-    renderBar("player");
-    compScore++
-  }
-
-  // Show Results
-  setTimeout(renderHealth, 500);
-}
-
-function updateAttack(player, comp) {
-  pAttack.src = `images/attack/${getSymbol(player)}.png`
-  cAttack.src = `images/attack/${getSymbol(comp)}.png`
-}
 
 // EVENT LISTENERS
 
@@ -301,7 +324,9 @@ powerBtn.addEventListener('click', () => {
   initialize();
 });
 
+
 // AUDIO
+// Toggle music
 audioBtn.addEventListener('click', () => {
   if (toggleAudio) {
     toggleAudio = false;
@@ -314,6 +339,7 @@ audioBtn.addEventListener('click', () => {
   controlAudio();
 });
 
+// Play music
 function controlAudio() {
   if (gameStarting) {
     audioPlayer.currentTime = 0; // Reset audio to the beginning
@@ -323,20 +349,10 @@ function controlAudio() {
   } else {
     audioPlayer.pause();
   }
-
 }
 
-// GAME DONE
-function checkWin() {
-  if (playerScore >= win || compScore >= win) {
-    toggleBattleBtns(true);
-    if (playerScore > compScore) {
-      // YOU WIN!
-      displayText(`Congraulations! You win!`);
-    } else {
-      // YOU LOSE.
-      displayText(`Womp womp. You lose!`);
-    }
-    gameEnded = true;
-  }
-};
+// Play SFX
+function playSFX(name) {
+  sfxPlayer.src = `audios/sfx/${name}.mp3`
+  sfxPlayer.play(name);
+}

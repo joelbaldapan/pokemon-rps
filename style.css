@@ -408,14 +408,6 @@ button:disabled {
 /* Battle animations */
 /* ----------------- */
 
-/* .battle-anim.draw#player {
-    animation: draw 1s;
-}
-
-.battle-anim.draw#computer {
-    animation: draw 1s;
-} */
-
 .battle-anim.lose#player {
     animation: pHurt 1.3s;
 }
@@ -470,20 +462,6 @@ button:disabled {
 
     100% {
         transform: translateY(0em);
-    }
-}
-
-@keyframes draw {
-    50% {
-        transform: translateY(-0.5em);
-    }
-
-    70% {
-        transform: translateY(0.5em);
-    }
-
-    80% {
-        transform: scale(1.1);
     }
 }
 
