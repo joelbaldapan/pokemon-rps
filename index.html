@@ -22,18 +22,18 @@
       <img id="computer" src="images/pokemons/Charizard.gif" alt="charizard">
 
       <div class="p-info">
+        <img id="p-tag" src="images/UI/p-tag.png" alt="player tag">
         <span class="name">Lucario</span>
         <span class="name level">40</span>
-        <img id="p-tag" src="images/UI/p-tag.png" alt="player tag">
         <div class="healthBar" id="p-healthBar"></div>
         <span class="health" id="p-health">100</span>
         <span class="health" id="p-healthTotal">100</span>
       </div>
 
       <div class="c-info">
+        <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag">
         <span class="name">Charizard</span>
         <span class="name level">40</span>
-        <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag">
         <div class="healthBar" id="c-healthBar"></div>
       </div>
 
@@ -66,8 +66,10 @@
 
 
   <!--audio used in game-->
-  <audio id="battle-music" src="audios/wildBattle-BW.mp3" loop></audio>
-  <audio id="sfx" src="audios/sfx/hitSFX.mp3"></audio>
+  <audio id="battle-music" src="audios/music/wildBattle-BW.mp3" loop></audio>
+  <audio id="sfx" src="audios/sfx/Water-sfx.mp3"></audio>
+  <!-- to prevent overlap -->
+  <audio id="hit-sfx" src="audios/sfx/Hit-sfx.mp3"></audio>
 </body>
 
 </html>

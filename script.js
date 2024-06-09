@@ -8,6 +8,9 @@ const player = document.getElementById('player');
 const computer = document.getElementById('computer');
 const pAttack = document.getElementById('p-attack');
 const cAttack = document.getElementById('c-attack');
+const pInfo = document.getElementsByClassName('p-info')[0];
+const cInfo = document.getElementsByClassName('c-info')[0];
+
 
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
@@ -16,6 +19,7 @@ const scissorsBtn = document.getElementById('scissorsBtn');
 const audioBtn = document.getElementById('audioBtn');
 const audioPlayer = document.getElementById('battle-music');
 const sfxPlayer = document.getElementById('sfx');
+const hitPlayer = document.getElementById('hit-sfx');
 const powerBtn = document.getElementById('powerBtn');
 
 const pBar = document.getElementById('p-healthBar');
@@ -42,13 +46,14 @@ const pName = "Lucario";
 const cName = "Charizard";
 
 toggleBattleBtns(true);
+audioPlayer.volume = 0.5;
 powerBtn.style.backgroundColor = "#f6f2db";
 audioBtn.style.backgroundColor = "#dbf6dc";
 pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 10;
+let win = 2;
 
 // INITIALIZE
 function initialize() {
@@ -56,6 +61,7 @@ function initialize() {
     gameEnded = false;
     gameOngoing = false;
     toggleBattleBtns(true);
+    audioPlayer.src = `audios/music/wildBattle-BW.mp3`
     audioPlayer.pause();
     battleView.classList.remove("start-anim");
     powerBtn.style.backgroundColor = "#f6f2db";
@@ -76,6 +82,7 @@ function initialize() {
     setTimeout(displayText, 3000, `Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`);
     powerBtn.disabled = false; // Disable power buttons;
     playAnim("start-anim");
+    playStart("start-anim");
   }
 }
 
@@ -93,6 +100,8 @@ function playRound(playerChoice) {
   if (playerChoice == compChoice) {
     displayText(`${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`);
     playBattleAnim("d");
+
+    playSFX(getSymbol(compChoice) + "-sfx");
   }
   // You win! (R vs S; P vs R; S vs P)
   else if (
@@ -103,6 +112,9 @@ function playRound(playerChoice) {
     playBattleAnim("p");
     renderBar("computer");
     playerScore++
+
+    playSFX(getSymbol(playerChoice) + "-sfx");
+    setTimeout(playHitSFX, 600);
   }
   // Computer wins!
   else {
@@ -110,12 +122,15 @@ function playRound(playerChoice) {
     playBattleAnim("c");
     renderBar("player");
     compScore++
+
+    playSFX(getSymbol(compChoice) + "-sfx");
+    setTimeout(playHitSFX, 600);
   }
 
-  // Show Results, animations, audio
+  // Show Results, animations
   playAnim("battle-anim");
   updateAttack(playerChoice, compChoice);
-  setTimeout(renderHealth, 500);
+  setTimeout(renderHealth, 600);
 }
 
 // GAME DONE
@@ -124,11 +139,14 @@ function checkWin() {
     toggleBattleBtns(true);
     if (playerScore > compScore) {
       // YOU WIN!
+      audioPlayer.src = `audios/music/victoryMusic.mp3`
       displayText(`Congraulations! You win!`);
     } else {
       // YOU LOSE.
+      audioPlayer.src = `audios/music/loseMusic.mp3`
       displayText(`Womp womp. You lose!`);
     }
+    audioPlayer.play();
     gameEnded = true;
   }
 };
@@ -185,6 +203,28 @@ function removeClass(element, className) {
 // lose
 
 
+// Animation Toggles
+function playAnim(name) {
+  // Add Animation Class
+  player.classList.add(name);
+  computer.classList.add(name);
+  pAttack.classList.add(name);
+  cAttack.classList.add(name);
+  battleView.classList.add(name);
+  pInfo.classList.add(name);
+  cInfo.classList.add(name);
+
+  // Listen and Remove Animation Class
+  const elements = [player, computer, pAttack, cAttack, pInfo, cInfo];
+
+  elements.forEach(element => {
+    element.addEventListener('animationend', () => {
+      element.classList.remove(name);
+    });
+  });
+}
+
+
 //Get Symbol
 function getSymbol(num) {
   num = num.toString();
@@ -237,30 +277,10 @@ function toggleBattleBtns(toggle) {
 }
 
 
-// Animation Toggles
-function playAnim(name) {
-  // Add Animation Class
-  player.classList.add(name);
-  computer.classList.add(name);
-  pAttack.classList.add(name);
-  cAttack.classList.add(name);
-  battleView.classList.add(name);
-
-  // Listen and Remove Animation Class
-  const elements = [player, computer, pAttack, cAttack];
-
-  elements.forEach(element => {
-    element.addEventListener('animationend', () => {
-      element.classList.remove(name);
-    });
-  });
-}
-
-
 // Update Attack Sprite
 function updateAttack(player, comp) {
-  pAttack.src = `images/attack/${player}.png`
-  cAttack.src = `images/attack/${comp}.png`
+  pAttack.src = `images/attack/${getSymbol(player)}.png`
+  cAttack.src = `images/attack/${getSymbol(comp)}.png`
 }
 
 
@@ -353,6 +373,14 @@ function controlAudio() {
 
 // Play SFX
 function playSFX(name) {
-  sfxPlayer.src = `audios/sfx/${name}.mp3`
-  sfxPlayer.play(name);
+  if (toggleAudio) {
+    sfxPlayer.src = `audios/sfx/${name}.mp3`
+    sfxPlayer.play();
+  }
+}
+
+function playHitSFX() {
+  if (toggleAudio) {
+    hitPlayer.play();
+  }
 }

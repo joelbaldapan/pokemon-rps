@@ -404,6 +404,42 @@ button:disabled {
     }
 }
 
+.start-anim.p-info * {
+    animation: p-infoIn 2.3s;
+}
+
+.start-anim.c-info * {
+    animation: c-infoIn 2s;
+}
+
+@keyframes p-infoIn {
+    0% {
+        transform: translateX(20em);
+    }
+
+    50% {
+        transform: translateX(20em);
+    }
+
+    100% {
+        transform: translateX(0em);
+    }
+}
+
+@keyframes c-infoIn {
+    0% {
+        transform: translateX(-20em);
+    }
+
+    50% {
+        transform: translateX(-20em);
+    }
+
+    100% {
+        transform: translateX(0em);
+    }
+}
+
 /* ----------------- */
 /* Battle animations */
 /* ----------------- */
