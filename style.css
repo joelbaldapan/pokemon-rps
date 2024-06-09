@@ -407,6 +407,23 @@ button:disabled {
 /* ----------------- */
 /* Battle animations */
 /* ----------------- */
+
+/* .battle-anim.draw#player {
+    animation: draw 1s;
+}
+
+.battle-anim.draw#computer {
+    animation: draw 1s;
+} */
+
+.battle-anim.lose#player {
+    animation: pHurt 1.3s;
+}
+
+.battle-anim.lose#computer {
+    animation: cHurt 1.3s;
+}
+
 .battle-anim#player {
     animation: pAttack 1s;
 }
@@ -456,7 +473,7 @@ button:disabled {
     }
 }
 
-@keyframes tie {
+@keyframes draw {
     50% {
         transform: translateY(-0.5em);
     }
@@ -466,22 +483,62 @@ button:disabled {
     }
 
     80% {
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 }
 
-@keyframes hurt {
+@keyframes pHurt {
+    0% {
+        transform: translateY(0em);
+    }
+
+    20% {
+        transform: translateY(.3em);
+    }
+
     50% {
-        transform: translateY(1em);
+        transform: translateX(1em) translateY(-0.6em);
+        filter: brightness(1);
     }
 
-    70% {
-        transform: rotate(20deg);
+
+    75% {
+        transform-origin: bottom left;
+        transform: translateY(2em) translateX(-2em) rotate(-10deg) scale(1.05);
+        filter: brightness(1.2);
     }
 
-    80% {
-        transform: scale(1.2);
-        filter: sepia(100%);
+    100% {
+        transform: none;
+        filter: brightness(1);
+    }
+
+}
+
+@keyframes cHurt {
+    0% {
+        transform: translateY(0em);
+    }
+
+    20% {
+        transform: translateX(-0.5em) translateY(-1em);
+    }
+
+    50% {
+        transform: translateX(-2em) translateY(0.3em);
+        filter: brightness(1);
+    }
+
+
+    75% {
+        transform-origin: bottom right;
+        transform: translateY(0.5em) translateX(1em) rotate(10deg) scale(0.95);
+        filter: brightness(1.2);
+    }
+
+    100% {
+        transform: none;
+        filter: brightness(1);
     }
 }
 
@@ -607,7 +664,6 @@ button:disabled {
         opacity: 0;
     }
 }
-
 
 
 .renderBar {

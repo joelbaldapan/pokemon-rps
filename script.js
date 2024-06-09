@@ -47,7 +47,7 @@ pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 2;
+let win = 10;
 
 // INITIALIZE
 function initialize() {
@@ -105,7 +105,7 @@ function nextLetter(text) {
     powerBtn.disabled = true;;
     textbox.textContent += text[index];
     index++;
-    setTimeout(nextLetter, 20, text);
+    setTimeout(nextLetter, 25, text);
   } else {
     if (!gameStarting && !gameEnded) {
       toggleBattleBtns(false);
