@@ -238,14 +238,14 @@ body {
     opacity: 0;
 }
 
-#pAttack {
+#p-attack {
     z-index: 3;
     width: 7em;
     bottom: 0%;
     left: 28%;
 }
 
-#cAttack {
+#c-attack {
     width: 6em;
     top: 15%;
     right: 20%;
@@ -486,29 +486,29 @@ button:disabled {
 }
 
 /* DRAW */
-.battle-anim.draw#pAttack {
+.battle-anim.draw#p-attack {
     animation: p-drawAttack 1s;
 }
 
-.battle-anim.draw#cAttack {
+.battle-anim.draw#c-attack {
     animation: c-drawAttack 1s;
 }
 
 /* PLAYER WINS */
-.battle-anim.win#pAttack {
+.battle-anim.win#p-attack {
     animation: p-winAttack 1s;
 }
 
-.battle-anim.lose#cAttack {
+.battle-anim.lose#c-attack {
     animation: c-loseAttack 1s;
 }
 
 /* COMP WINS */
-.battle-anim.lose#pAttack {
+.battle-anim.lose#p-attack {
     animation: p-loseAttack 1s;
 }
 
-.battle-anim.win#cAttack {
+.battle-anim.win#c-attack {
     animation: c-winAttack 1s;
 }
 
@@ -611,7 +611,7 @@ button:disabled {
 
 
 .renderBar {
-    animation: renderBar 0.5s;
+    animation: renderBar 0.5s 0.5s;
 }
 
 @keyframes renderBar {

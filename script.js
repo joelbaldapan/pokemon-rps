@@ -6,8 +6,8 @@ const textbox = document.getElementById('textbox');
 const battleView = document.getElementsByClassName('battle')[0];
 const player = document.getElementById('player');
 const computer = document.getElementById('computer');
-const pAttack = document.getElementById('pAttack');
-const cAttack = document.getElementById('cAttack');
+const pAttack = document.getElementById('p-attack');
+const cAttack = document.getElementById('c-attack');
 
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
@@ -47,36 +47,12 @@ pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 5;
-
-// Audio
-audioBtn.addEventListener('click', () => {
-  if (toggleAudio) {
-    toggleAudio = false;
-    audioBtn.style.backgroundColor = "#f6f2db";
-  } else {
-    toggleAudio = true;
-    audioBtn.style.backgroundColor = "#dbf6dc";
-  }
-
-  controlAudio();
-});
-
-function controlAudio() {
-  if (gameStarting) {
-    audioPlayer.currentTime = 0; // Reset audio to the beginning
-  }
-  if (toggleAudio && gameOngoing) {
-    audioPlayer.play();
-  } else {
-    audioPlayer.pause();
-  }
-
-}
+let win = 2;
 
 // INITIALIZE
 function initialize() {
   if (gameOngoing) {
+    gameEnded = false;
     gameOngoing = false;
     toggleBattleBtns(true);
     audioPlayer.pause();
@@ -131,7 +107,7 @@ function nextLetter(text) {
     index++;
     setTimeout(nextLetter, 20, text);
   } else {
-    if (!gameEnded && !gameStarting) {
+    if (!gameStarting && !gameEnded) {
       toggleBattleBtns(false);
       checkWin();
     }
@@ -151,12 +127,6 @@ function toggleBattleBtns(toggle) {
   scissorsBtn.disabled = toggle;
   statusBtn.disabled = toggle;
 }
-
-function toggleControlBtns(toggle) {
-  audioBtn.disabled = toggle;
-  powerBtn.disabled = toggle;
-}
-
 
 // Animation Toggles
 function playAnim(name) {
@@ -179,7 +149,6 @@ function playAnim(name) {
 
 // Function to remove class from element
 function removeClass(element, className) {
-  console.log(element, className);
   element.classList.remove(className);
 }
 
@@ -212,9 +181,11 @@ function playWinAnim(winner) {
     computer.classList.add(classes[winner].computer);
     cAttack.classList.add(classes[winner].cAttack);
 
-    [player, pAttack, computer, cAttack].forEach(element => {
+    [player, pAttack, computer, cAttack].forEach((element, index) => {
+      const abrv = classes[winner];
+      const classNames = [abrv.player, abrv.pAttack, abrv.computer, abrv.cAttack];
       element.addEventListener('animationend', () => {
-        removeClass(element, classes[winner][element.id]);
+        removeClass(element, classNames[index]);
       });
     });
   }
@@ -248,7 +219,7 @@ function renderHealth() {
   pBar.style.width = `${((1-(compScore / win)) * barWidth).toFixed(1)}em`;
   pHealth.textContent = `${((1-(compScore / win)) * baseHealth).toFixed(0)}`;
 
-  // Render Red Bar
+  // Render Red Health
   if ((1 - (playerScore / win) < 0.2)) {
     cBar.style.backgroundColor = "#c43939";
   } else {
@@ -271,6 +242,7 @@ function playRound(playerChoice) {
 
   // Play animation
   playAnim("battle-anim");
+  updateAttack(playerChoice, compChoice);
 
   // Draw
   if (playerChoice == compChoice) {
@@ -296,9 +268,13 @@ function playRound(playerChoice) {
   }
 
   // Show Results
-  renderHealth()
+  setTimeout(renderHealth, 500);
 }
 
+function updateAttack(player, comp) {
+  pAttack.src = `images/attack/${getSymbol(player)}.png`
+  cAttack.src = `images/attack/${getSymbol(comp)}.png`
+}
 
 // EVENT LISTENERS
 
@@ -325,6 +301,30 @@ powerBtn.addEventListener('click', () => {
   initialize();
 });
 
+// AUDIO
+audioBtn.addEventListener('click', () => {
+  if (toggleAudio) {
+    toggleAudio = false;
+    audioBtn.style.backgroundColor = "#f6f2db";
+  } else {
+    toggleAudio = true;
+    audioBtn.style.backgroundColor = "#dbf6dc";
+  }
+
+  controlAudio();
+});
+
+function controlAudio() {
+  if (gameStarting) {
+    audioPlayer.currentTime = 0; // Reset audio to the beginning
+  }
+  if (toggleAudio && gameOngoing) {
+    audioPlayer.play();
+  } else {
+    audioPlayer.pause();
+  }
+
+}
 
 // GAME DONE
 function checkWin() {
