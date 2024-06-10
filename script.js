@@ -57,7 +57,7 @@ pHealth.textContent = baseHealth;
 pHealthTotal.textContent = baseHealth;
 
 // NUMBER OF WINS
-let win = 1;
+let win = 5;
 
 // INITIALIZE
 function initialize() {
@@ -157,15 +157,20 @@ function checkWin() {
       // YOU WIN!
       computer.classList.add("faint");
       audioPlayer.src = `audios/music/victoryMusic.mp3`
-      displayText(`${cName} fainted... Congratulations! You win!`);
+      displayText(`${cName} fainted... Congratulations! You win! Press START to restart.`);
     } else {
       // YOU LOSE.
       player.classList.add("faint");
       audioPlayer.src = `audios/music/lostMusic.mp3`
-      displayText(`${pName} fainted... Womp womp. You lose!`);
+      displayText(`${pName} fainted... Womp womp. You lose! Press START to restart.`);
     }
-    audioPlayer.play();
-    playSFX("Faint-sfx");
+
+    // Play audio
+    if (toggleAudio) {
+      audioPlayer.play();
+      playSFX("Faint-sfx");
+    }
+
     gameEnded = true;
   }
 };
