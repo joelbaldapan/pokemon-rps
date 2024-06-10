@@ -57,8 +57,64 @@ body {
 
 }
 
+#win-form {
+    z-index: 40;
+    position: absolute;
+    color: var(--pri-lighter);
+
+    font-weight: 700;
+
+    border: 0.3em solid var(--pri-light);
+    border-radius: 2em;
+    background-color: var(--pri-neutral);
+
+    padding: 0.2em 2em;
+}
+
+.win-form {
+    font-size: 1.9em;
+}
+
+#form-text {
+    font-weight: 700;
+}
+
+#num-wins {
+    width: 2.5em;
+    font-size: 1.7em;
+    font-weight: 700;
+    margin: 0 0.2em 0;
+    padding: 0.1em 0.2em;
+
+    color: var(--pri-dark);
+    outline: none;
+    background: transparent;
+    appearance: none;
+    border: 0.2em solid var(--pri-lighter);
+    border-radius: 2em;
+    background-color: var(--pri-lighter);
+}
+
+#saveBtn {
+    font-size: 1.7em;
+    width: 2.5em;
+    padding: 0.1em 0.2em;
+
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    background: transparent;
+    appearance: none;
+    border: 0.2em solid var(--pri-lighter);
+    border-radius: 2em;
+    background-color: var(--pri-lighter);
+    color: var(--pri-dark);
+}
+
+
 .battle::before {
-    content: "Press the START button to play/restart";
+    content: "\A\A\A\APress the START button to play/restart";
+    white-space: pre-wrap;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -116,6 +172,12 @@ body {
     position: relative;
     max-width: 100%;
     overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 

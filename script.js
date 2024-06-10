@@ -27,7 +27,8 @@ const pHealth = document.getElementById('p-health');
 const pHealthTotal = document.getElementById('p-healthTotal');
 
 const winForm = document.getElementById('win-form');
-const inputArea = document.getElementById('input-area');
+const inputArea = document.getElementById('num-wins');
+const saveBtn = document.getElementById('saveBtn');
 
 
 // INITIALIZE
@@ -65,6 +66,9 @@ function initialize() {
     gameOngoing = false;
     toggleBattleBtns(true);
 
+    // Add Input Area
+    winForm.style.display = 'block';
+
     // Remove animations and reset DOM
     player.classList.remove("faint");
     computer.classList.remove("faint");
@@ -80,6 +84,9 @@ function initialize() {
     gameOngoing = true;
     playerScore = 0;
     compScore = 0;
+
+    // Remove Input Area
+    winForm.style.display = 'none';
 
     // Initialize starting animation and audio
     powerBtn.style.backgroundColor = "#dbf6dc";
@@ -150,7 +157,7 @@ function checkWin() {
       // YOU WIN!
       computer.classList.add("faint");
       audioPlayer.src = `audios/music/victoryMusic.mp3`
-      displayText(`${cName} fainted...Congraulations! You win!`);
+      displayText(`${cName} fainted... Congratulations! You win!`);
     } else {
       // YOU LOSE.
       player.classList.add("faint");
@@ -401,5 +408,18 @@ function playHitSFX() {
 winForm.addEventListener('submit', (e) => {
   e.preventDefault();
   win = document.getElementById('num-wins').value;
-  // inputArea.style.display = 'none';
+  inputArea.style.backgroundColor = "#dbf6dc";
+  saveBtn.style.backgroundColor = "#dbf6dc";
+  inputArea.style.borderColor = "#dbf6dc";
+  saveBtn.style.borderColor = "#dbf6dc";
+});
+
+// Detect change in form
+inputArea.addEventListener('input', () => {
+  if (win !== undefined && inputArea.value !== win) {
+    inputArea.style.backgroundColor = "#f6f2db";
+    saveBtn.style.backgroundColor = "#f6f2db";
+    inputArea.style.borderColor = "#f6f2db";
+    saveBtn.style.borderColor = "#f6f2db";
+  }
 });

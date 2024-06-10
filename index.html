@@ -41,6 +41,14 @@
         <img class="attack" id="p-attack" src="images/attack/fire.png" alt="player attack">
         <img class="attack" id="c-attack" src="images/attack/water.png" alt="comp attack">
       </div>
+
+      <!-- WIN FORM contains input to change wins per round -->
+      <form id="win-form">
+        <label class="win-form" id="form-text" for="num-wins">Wins to end game:</label>
+        <input class="win-form" type="number" id="num-wins" name="num-wins" min="1" value="5" required>
+        <button class="win-form" id="saveBtn" type="submit">Save</button>
+      </form>
+
     </div>
 
     <!-- INTERACT contains textboxes and choice buttons -->
@@ -51,7 +59,7 @@
         <button class="choiceBtn" id="rockBtn">🔥&ensp;Fire</button>
         <button class="choiceBtn" id="paperBtn">🌊 Water</button>
         <button class="choiceBtn" id="scissorsBtn">🍃 Grass</button>
-        <button class="choiceBtn" id="statusBtn">❓&ensp;Status</button>
+        <button class="choiceBtn" id="statusBtn">❓ Status</button>
       </div>
 
     </div>
@@ -62,15 +70,6 @@
       <button class="controlBtn" id="powerBtn">START</button>
     </div>
 
-  </div>
-
-  <!-- INPUTE AREA contains form for wins -->
-  <div id="input-area">
-    <form id="win-form">
-      <label for="num-wins">Enter number of wins to end the game:</label>
-      <input type="number" id="num-wins" name="num-wins" min="1" required>
-      <button type="submit">Save</button>
-    </form>
   </div>
 
 
