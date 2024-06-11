@@ -31,6 +31,10 @@ const inputArea = document.getElementById('num-wins');
 const saveBtn = document.getElementById('saveBtn');
 
 
+// WEB PAGE 
+// Initialize
+document.getElementById('logo').src = "images/header/signatureW.gif?a=" + Math.random()
+
 // INITIALIZE
 let gameStarting = false;
 let gameEnded = false;
@@ -417,6 +421,7 @@ winForm.addEventListener('submit', (e) => {
   saveBtn.style.backgroundColor = "#dbf6dc";
   inputArea.style.borderColor = "#dbf6dc";
   saveBtn.style.borderColor = "#dbf6dc";
+  saveBtn.textContent = "Saved!";
 });
 
 // Detect change in form
@@ -426,5 +431,6 @@ inputArea.addEventListener('input', () => {
     saveBtn.style.backgroundColor = "#f6f2db";
     inputArea.style.borderColor = "#f6f2db";
     saveBtn.style.borderColor = "#f6f2db";
+    saveBtn.textContent = "Unsaved";
   }
 });

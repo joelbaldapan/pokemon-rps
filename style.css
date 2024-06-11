@@ -3,6 +3,8 @@
     src: url('fonts/pokemon-b-w.ttf') format('truetype');
 }
 
+/* Zilla Slab */
+
 
 :root {
     --pri-dark: #183e57;
@@ -13,6 +15,13 @@
     --sec-neutral: #80ed99;
     --sec-light: #c7f9cc;
     --sec-lighter: #e0f7e2;
+
+    --w-pri-dark: #3E10B3;
+    --w-pri-light: #5400FD;
+    --w-sec: #DA3FA9;
+    --w-accent: #D5CC17;
+    --w-background: #040115;
+    --w-text: #cddbec;
 }
 
 
@@ -34,16 +43,56 @@ body {
 body {
     display: flex;
     align-items: center;
-    justify-content: center;
+
     flex-direction: column;
-    background: var(--sec-light);
+    background: var(--w-background);
 }
 
-#title {
-    text-align: center;
-    font-size: min(10vw, 50px);
-    padding: 0.5em;
+/* Header */
+
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Zilla Slab', serif;
+
+    padding: 4rem;
+    color: var(--w-text)
 }
+
+#logo {
+    width: min(40vw, 300px);
+}
+
+h1 {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 600;
+    font-size: 4rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
+}
+
+footer {
+    padding: 4rem;
+    color: var(--w-text)
+}
+
+p {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* ----------- */
+/* GAME LAYOUT */
+/* ----------- */
 
 #console {
     width: 85%;
@@ -97,7 +146,7 @@ body {
 
 #saveBtn {
     font-size: 1.7em;
-    width: 2.5em;
+    width: 3.5em;
     padding: 0.1em 0.2em;
 
     font-weight: 700;
