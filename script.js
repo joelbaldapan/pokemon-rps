@@ -31,6 +31,7 @@ const inputArea = document.getElementById("num-wins");
 const saveBtn = document.getElementById("saveBtn");
 
 const logo = document.getElementById("logo");
+const main = document.querySelector("main");
 
 // Scrollers
 const frontContainer = document.querySelector(".scroller-inner.front");
@@ -148,6 +149,7 @@ function initialize() {
     // Remove animations and reset DOM
     player.classList.remove("faint");
     computer.classList.remove("faint");
+    main.classList.remove("start-anim");
     battleView.classList.remove("start-anim");
     powerBtn.style.backgroundColor = "#f6f2db";
     textbox.textContent = "";
@@ -329,6 +331,7 @@ function removeClass(element, className) {
 // Animation Toggles
 function playAnim(name) {
   // Add Animation Class
+  main.classList.add(name);
   player.classList.add(name);
   computer.classList.add(name);
   pAttack.classList.add(name);

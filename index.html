@@ -38,89 +38,91 @@
       </div>
     </header>
 
-    <div id="console">
-      <!-- BATTLE contains sprites -->
-      <div class="battle" id="battle">
-        <img
-          id="scene"
-          src="images/scenes/BackgroundShowdown.png"
-          alt="grass bg"
-        />
-
-        <img id="player" src="images/pokemons/Lucario.gif" alt="lucario" />
-        <img
-          id="computer"
-          src="images/pokemons/Charizard.gif"
-          alt="charizard"
-        />
-
-        <div class="p-info">
-          <img id="p-tag" src="images/UI/p-tag.png" alt="player tag" />
-          <span class="name">Lucario</span>
-          <span class="name level">40</span>
-          <div class="healthBar" id="p-healthBar"></div>
-          <span class="health" id="p-health">100</span>
-          <span class="health" id="p-healthTotal">100</span>
-        </div>
-
-        <div class="c-info">
-          <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag" />
-          <span class="name">Charizard</span>
-          <span class="name level">40</span>
-          <div class="healthBar" id="c-healthBar"></div>
-        </div>
-
-        <div class="icons">
+    <main>
+      <div id="console">
+        <!-- BATTLE contains sprites -->
+        <div class="battle" id="battle">
           <img
-            class="attack"
-            id="p-attack"
-            src="images/attack/fire.png"
-            alt="player attack"
+            id="scene"
+            src="images/scenes/BackgroundShowdown.png"
+            alt="grass bg"
           />
+
+          <img id="player" src="images/pokemons/Lucario.gif" alt="lucario" />
           <img
-            class="attack"
-            id="c-attack"
-            src="images/attack/water.png"
-            alt="comp attack"
+            id="computer"
+            src="images/pokemons/Charizard.gif"
+            alt="charizard"
           />
+
+          <div class="p-info">
+            <img id="p-tag" src="images/UI/p-tag.png" alt="player tag" />
+            <span class="name">Lucario</span>
+            <span class="name level">40</span>
+            <div class="healthBar" id="p-healthBar"></div>
+            <span class="health" id="p-health">100</span>
+            <span class="health" id="p-healthTotal">100</span>
+          </div>
+
+          <div class="c-info">
+            <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag" />
+            <span class="name">Charizard</span>
+            <span class="name level">40</span>
+            <div class="healthBar" id="c-healthBar"></div>
+          </div>
+
+          <div class="icons">
+            <img
+              class="attack"
+              id="p-attack"
+              src="images/attack/fire.png"
+              alt="player attack"
+            />
+            <img
+              class="attack"
+              id="c-attack"
+              src="images/attack/water.png"
+              alt="comp attack"
+            />
+          </div>
+
+          <!-- WIN FORM contains input to change wins per round -->
+          <form id="win-form">
+            <label class="win-form" id="form-text" for="num-wins"
+              >Input rounds to win:</label
+            >
+            <input
+              class="win-form"
+              type="number"
+              id="num-wins"
+              name="num-wins"
+              min="1"
+              value="5"
+              required
+            />
+            <button class="win-form" id="saveBtn" type="submit">Save</button>
+          </form>
         </div>
 
-        <!-- WIN FORM contains input to change wins per round -->
-        <form id="win-form">
-          <label class="win-form" id="form-text" for="num-wins"
-            >Input rounds to win:</label
-          >
-          <input
-            class="win-form"
-            type="number"
-            id="num-wins"
-            name="num-wins"
-            min="1"
-            value="5"
-            required
-          />
-          <button class="win-form" id="saveBtn" type="submit">Save</button>
-        </form>
-      </div>
+        <!-- INTERACT contains textboxes and choice buttons -->
+        <div class="interact">
+          <div id="textbox"></div>
 
-      <!-- INTERACT contains textboxes and choice buttons -->
-      <div class="interact">
-        <div id="textbox"></div>
+          <div class="choices">
+            <button class="choiceBtn" id="rockBtn">🔥&ensp;Fire</button>
+            <button class="choiceBtn" id="paperBtn">🌊 Water</button>
+            <button class="choiceBtn" id="scissorsBtn">🍃 Grass</button>
+            <button class="choiceBtn" id="statusBtn">❓ Status</button>
+          </div>
+        </div>
 
-        <div class="choices">
-          <button class="choiceBtn" id="rockBtn">🔥&ensp;Fire</button>
-          <button class="choiceBtn" id="paperBtn">🌊 Water</button>
-          <button class="choiceBtn" id="scissorsBtn">🍃 Grass</button>
-          <button class="choiceBtn" id="statusBtn">❓ Status</button>
+        <!-- CONTROL contains audio and power button -->
+        <div class="control">
+          <button class="controlBtn" id="audioBtn">AUDIO</button>
+          <button class="controlBtn" id="powerBtn">START</button>
         </div>
       </div>
-
-      <!-- CONTROL contains audio and power button -->
-      <div class="control">
-        <button class="controlBtn" id="audioBtn">AUDIO</button>
-        <button class="controlBtn" id="powerBtn">START</button>
-      </div>
-    </div>
+    </main>
 
     <footer>
       <p>Made with love by Joel Baldapan :)</p>

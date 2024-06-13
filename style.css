@@ -23,6 +23,13 @@
   --w-text: #cddbec;
 
   --font-main: "Zilla Slab", serif;
+
+  --gradient: linear-gradient(
+    45deg,
+    hsla(154, 46%, 53%, 1) 0%,
+    hsla(181, 59%, 51%, 1) 50%,
+    hsla(154, 46%, 53%, 1) 100%
+  );
 }
 
 * {
@@ -46,8 +53,7 @@ body {
   background: var(--w-background);
 }
 
-/* Header */
-
+/* HEADER */
 header {
   display: flex;
   align-items: center;
@@ -55,14 +61,7 @@ header {
   font-family: var(--font-main);
 
   color: var(--w-text);
-  padding: 2rem 0 4rem;
-}
-
-@media (max-width: 1200px) {
-  header {
-    padding: calc((100vh - (50rem)) / 2) 0 calc((100vh - (40rem)) / 2);
-    /* Adjust padding for smaller screens */
-  }
+  padding: calc((100vh - (45rem)) / 2) 0 20rem;
 }
 
 #logo {
@@ -85,6 +84,37 @@ h2 {
   text-align: center;
 }
 
+/* MAIN */
+main {
+  width: 100%;
+  height: 100%;
+  background: var(--pri-dark);
+
+  display: flex;
+  justify-content: center;
+
+  -webkit-mask: linear-gradient(transparent, white 20% 80%, transparent);
+  mask: linear-gradient(transparent, white 20% 80%, transparent);
+}
+
+main.start-anim {
+  animation: playingBackground 5s ease-in-out infinite alternate;
+}
+
+@keyframes playingBackground {
+  0% {
+    background: var(--gradient);
+    background-size: 400%;
+    background-position: right;
+  }
+  100% {
+    background: var(--gradient);
+    background-size: 400%;
+    background-position: left;
+  }
+}
+
+/* FOOTER */
 footer {
   padding: 4rem;
   color: var(--w-text);
@@ -103,8 +133,8 @@ p {
 
 .scroller {
   width: min(80vw, 100rem);
-  -webkit-mask: linear-gradient(90deg, transparent, white 20% 80%, transparent);
-  mask: linear-gradient(90deg, transparent, white 20% 80%, transparent);
+  -webkit-mask: linear-gradient(90deg, transparent, white 10% 90%, transparent);
+  mask: linear-gradient(90deg, transparent, white 10% 90%, transparent);
   overflow: hidden;
 }
 
@@ -153,7 +183,7 @@ p {
   box-sizing: border-box;
   grid-template-rows: 1fr 0fr;
 
-  margin: 5rem;
+  margin: 10vh 0;
 }
 
 #win-form {
