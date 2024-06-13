@@ -1,10 +1,9 @@
 @font-face {
-    font-family: 'PokemonBW';
-    src: url('fonts/pokemon-b-w.ttf') format('truetype');
+    font-family: "PokemonBW";
+    src: url("fonts/pokemon-b-w.ttf") format("truetype");
 }
 
 /* Zilla Slab */
-
 
 :root {
     --pri-dark: #183e57;
@@ -16,20 +15,20 @@
     --sec-light: #c7f9cc;
     --sec-lighter: #e0f7e2;
 
-    --w-pri-dark: #3E10B3;
-    --w-pri-light: #5400FD;
-    --w-sec: #DA3FA9;
-    --w-accent: #D5CC17;
+    --w-pri-dark: #3e10b3;
+    --w-pri-light: #5400fd;
+    --w-sec: #da3fa9;
+    --w-accent: #d5cc17;
     --w-background: #040115;
     --w-text: #cddbec;
+
+    --font-main: "Zilla Slab", serif;
 }
-
-
 
 * {
     box-sizing: border-box;
     margin: 0;
-    font-family: 'PokemonBW';
+    font-family: "PokemonBW";
     font-size: min(2vw, 15px);
 }
 
@@ -38,7 +37,6 @@ body {
     margin: 0;
     height: 100%;
 }
-
 
 body {
     display: flex;
@@ -54,40 +52,90 @@ header {
     display: flex;
     align-items: center;
     flex-direction: column;
-    font-family: 'Zilla Slab', serif;
+    font-family: var(--font-main);
 
-    padding: 4rem;
-    color: var(--w-text)
+    color: var(--w-text);
+    padding: 4rem 0 4.5rem;
+}
+
+@media (max-width: 1200px) {
+    header {
+        padding: calc((100vh - (50rem)) / 2) 0 calc((100vh - (40rem)) / 2);
+        /* Adjust padding for smaller screens */
+    }
 }
 
 #logo {
-    width: min(40vw, 300px);
+    width: min(45vw, 400px);
+    opacity: 0;
 }
 
 h1 {
-    font-family: 'Zilla Slab', serif;
+    font-family: var(--font-main);
     font-weight: 600;
-    font-size: 4rem;
+    font-size: min(8vw, 6rem);
     text-align: center;
 }
 
 h2 {
-    font-family: 'Zilla Slab', serif;
+    font-family: var(--font-main);
     font-weight: 400;
-    font-size: 2rem;
+    font-size: min(8vw, 2rem);
     text-align: center;
 }
 
 footer {
     padding: 4rem;
-    color: var(--w-text)
+    color: var(--w-text);
 }
 
 p {
-    font-family: 'Zilla Slab', serif;
+    font-family: var(--font-main);
     font-weight: 400;
     font-size: 2rem;
     text-align: center;
+}
+
+/* -------- */
+/* SCROLLER */
+/* -------- */
+
+.scroller {
+    width: 80vw;
+    -webkit-mask: linear-gradient(90deg, transparent, white 20% 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 20% 80%, transparent);
+    overflow: hidden;
+}
+
+.scroller-inner {
+    width: fit-content;
+    padding-block: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.scroller-inner img {
+    height: 8.5rem;
+    flex-wrap: nowrap;
+}
+
+.scroller.animated .scroller-inner {
+    flex-wrap: nowrap;
+    animation: scroll 40s var(--animation-direction) linear infinite;
+}
+
+.toRight {
+    --animation-direction: reverse;
+}
+
+.toLeft {
+    --animation-direction: forwards;
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(-50%);
+    }
 }
 
 /* ----------- */
@@ -104,6 +152,7 @@ p {
     box-sizing: border-box;
     grid-template-rows: 1fr 0fr;
 
+    margin: 5rem;
 }
 
 #win-form {
@@ -160,7 +209,6 @@ p {
     color: var(--pri-dark);
 }
 
-
 .battle::before {
     content: "\A\A\A\APress the START button to play/restart";
     white-space: pre-wrap;
@@ -186,7 +234,6 @@ p {
 }
 
 @keyframes power-on {
-
     0% {
         content: "";
         background-color: var(--pri-dark);
@@ -228,7 +275,6 @@ p {
     width: 100%;
     height: 100%;
 }
-
 
 #scene {
     display: block;
@@ -289,15 +335,12 @@ p {
     top: -14%;
     font-size: 1.8em;
     font-weight: 500;
-    text-shadow:
-        0.06em 0.06em 0 #000,
-        -0.06em 0.06em 0 #000,
-        -0.06em -0.06em 0 #000,
-        0.06em -0.06em 0 #000;
+    text-shadow: 0.06em 0.06em 0 #000, -0.06em 0.06em 0 #000,
+        -0.06em -0.06em 0 #000, 0.06em -0.06em 0 #000;
 }
 
 .level {
-    right: 14%
+    right: 14%;
 }
 
 .healthBar {
@@ -328,11 +371,8 @@ p {
     font-size: 1.3em;
     font-weight: 550;
     font-style: italic;
-    text-shadow:
-        0.07em 0.07em 0 #000,
-        -0.07em 0.07em 0 #000,
-        -0.07em -0.07em 0 #000,
-        0.07em -0.07em 0 #000;
+    text-shadow: 0.07em 0.07em 0 #000, -0.07em 0.07em 0 #000,
+        -0.07em -0.07em 0 #000, 0.07em -0.07em 0 #000;
 }
 
 #p-health {
@@ -362,7 +402,6 @@ p {
     right: 20%;
     z-index: 1;
 }
-
 
 /* -------------------- */
 /* Inside interact area */
@@ -405,7 +444,7 @@ p {
     border: 0.2em solid var(--pri-dark);
     border-radius: 1em;
     margin: 0.1em;
-    padding: .4em;
+    padding: 0.4em;
     font-weight: 700;
     text-align: left;
     font-size: 1.4em;
@@ -427,7 +466,6 @@ button:disabled {
     color: rgba(0, 0, 0, 0.718);
     opacity: 1;
 }
-
 
 #rockBtn {
     background-color: #cc5757;
@@ -460,7 +498,7 @@ button:disabled {
     border-radius: 1em;
     background-color: var(--pri-lighter);
 
-    padding: .4em 2em;
+    padding: 0.4em 2em;
     font-weight: 700;
     text-align: left;
     font-size: 1.4em;
@@ -471,7 +509,6 @@ button:disabled {
 #audioBtn {
     background-color: #bcefc5;
 }
-
 
 /* ---------- */
 /* ---------- */
@@ -577,7 +614,7 @@ button:disabled {
     }
 
     10% {
-        transform: translateY(.3em);
+        transform: translateY(0.3em);
     }
 
     25% {
@@ -586,7 +623,6 @@ button:disabled {
 
     50% {
         transform: translateX(2em) translateY(0.2em);
-        ;
     }
 
     100% {
@@ -618,14 +654,13 @@ button:disabled {
     }
 
     20% {
-        transform: translateY(.3em);
+        transform: translateY(0.3em);
     }
 
     50% {
         transform: translateX(1em) translateY(-0.6em);
         filter: brightness(1);
     }
-
 
     75% {
         transform-origin: bottom left;
@@ -637,7 +672,6 @@ button:disabled {
         transform: none;
         filter: brightness(1);
     }
-
 }
 
 @keyframes cHurt {
@@ -653,7 +687,6 @@ button:disabled {
         transform: translateX(-2em) translateY(0.3em);
         filter: brightness(1);
     }
-
 
     75% {
         transform-origin: bottom right;
@@ -789,7 +822,6 @@ button:disabled {
         opacity: 0;
     }
 }
-
 
 .renderBar {
     animation: renderBar 0.5s 0.5s;

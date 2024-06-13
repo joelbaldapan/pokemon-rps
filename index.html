@@ -1,99 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock Paper Scissors</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
+  <body>
+    <header>
+      <img
+        id="logo"
+        src="images/header/signatureW.gif"
+        alt="By Joel Baldapan"
+      />
 
-<body>
-
-  <header>
-    <img id="logo" src="images/header/signatureW.gif" alt="By Joel Baldapan">
-    <h1>Pokémon: Fire, Grass, and Water!</h1>
-    <h2>(Basically Rock, Paper, Scissors)</h2>
-    <h2>-- Made with HTML, CSS, and Javascript --</h2>
-  </header>
-
-
-  <div id="console">
-
-    <!-- BATTLE contains sprites -->
-    <div class="battle" id="battle">
-      <img id="scene" src="images/scenes/BackgroundShowdown.png" alt="grass bg">
-
-      <img id="player" src="images/pokemons/Lucario.gif" alt="lucario">
-      <img id="computer" src="images/pokemons/Charizard.gif" alt="charizard">
-
-      <div class="p-info">
-        <img id="p-tag" src="images/UI/p-tag.png" alt="player tag">
-        <span class="name">Lucario</span>
-        <span class="name level">40</span>
-        <div class="healthBar" id="p-healthBar"></div>
-        <span class="health" id="p-health">100</span>
-        <span class="health" id="p-healthTotal">100</span>
+      <div class="scroller toRight">
+        <div class="scroller-inner front"></div>
       </div>
 
-      <div class="c-info">
-        <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag">
-        <span class="name">Charizard</span>
-        <span class="name level">40</span>
-        <div class="healthBar" id="c-healthBar"></div>
+      <h1>
+        Pokémon: Fire, Grass,<br />
+        and Water!
+      </h1>
+      <h2>(Basically Rock, Paper, Scissors)</h2>
+      <h2>-- Made with HTML, CSS, and Javascript --</h2>
+
+      <div class="scroller toLeft">
+        <div class="scroller-inner back"></div>
+      </div>
+    </header>
+
+    <div id="console">
+      <!-- BATTLE contains sprites -->
+      <div class="battle" id="battle">
+        <img
+          id="scene"
+          src="images/scenes/BackgroundShowdown.png"
+          alt="grass bg"
+        />
+
+        <img id="player" src="images/pokemons/Lucario.gif" alt="lucario" />
+        <img
+          id="computer"
+          src="images/pokemons/Charizard.gif"
+          alt="charizard"
+        />
+
+        <div class="p-info">
+          <img id="p-tag" src="images/UI/p-tag.png" alt="player tag" />
+          <span class="name">Lucario</span>
+          <span class="name level">40</span>
+          <div class="healthBar" id="p-healthBar"></div>
+          <span class="health" id="p-health">100</span>
+          <span class="health" id="p-healthTotal">100</span>
+        </div>
+
+        <div class="c-info">
+          <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag" />
+          <span class="name">Charizard</span>
+          <span class="name level">40</span>
+          <div class="healthBar" id="c-healthBar"></div>
+        </div>
+
+        <div class="icons">
+          <img
+            class="attack"
+            id="p-attack"
+            src="images/attack/fire.png"
+            alt="player attack"
+          />
+          <img
+            class="attack"
+            id="c-attack"
+            src="images/attack/water.png"
+            alt="comp attack"
+          />
+        </div>
+
+        <!-- WIN FORM contains input to change wins per round -->
+        <form id="win-form">
+          <label class="win-form" id="form-text" for="num-wins"
+            >Input rounds to win:</label
+          >
+          <input
+            class="win-form"
+            type="number"
+            id="num-wins"
+            name="num-wins"
+            min="1"
+            value="5"
+            required
+          />
+          <button class="win-form" id="saveBtn" type="submit">Save</button>
+        </form>
       </div>
 
-      <div class="icons">
-        <img class="attack" id="p-attack" src="images/attack/fire.png" alt="player attack">
-        <img class="attack" id="c-attack" src="images/attack/water.png" alt="comp attack">
+      <!-- INTERACT contains textboxes and choice buttons -->
+      <div class="interact">
+        <div id="textbox"></div>
+
+        <div class="choices">
+          <button class="choiceBtn" id="rockBtn">🔥&ensp;Fire</button>
+          <button class="choiceBtn" id="paperBtn">🌊 Water</button>
+          <button class="choiceBtn" id="scissorsBtn">🍃 Grass</button>
+          <button class="choiceBtn" id="statusBtn">❓ Status</button>
+        </div>
       </div>
 
-      <!-- WIN FORM contains input to change wins per round -->
-      <form id="win-form">
-        <label class="win-form" id="form-text" for="num-wins">Input rounds to win:</label>
-        <input class="win-form" type="number" id="num-wins" name="num-wins" min="1" value="5" required>
-        <button class="win-form" id="saveBtn" type="submit">Save</button>
-      </form>
-
+      <!-- CONTROL contains audio and power button -->
+      <div class="control">
+        <button class="controlBtn" id="audioBtn">AUDIO</button>
+        <button class="controlBtn" id="powerBtn">START</button>
+      </div>
     </div>
 
-    <!-- INTERACT contains textboxes and choice buttons -->
-    <div class="interact">
-      <div id="textbox"></div>
+    <footer>
+      <p>Made with love by Joel Baldapan :)</p>
+      <p>--still a work in progress--</p>
+      <p>to add: footer stuff here</p>
+    </footer>
 
-      <div class="choices">
-        <button class="choiceBtn" id="rockBtn">🔥&ensp;Fire</button>
-        <button class="choiceBtn" id="paperBtn">🌊 Water</button>
-        <button class="choiceBtn" id="scissorsBtn">🍃 Grass</button>
-        <button class="choiceBtn" id="statusBtn">❓ Status</button>
-      </div>
-
-    </div>
-
-    <!-- CONTROL contains audio and power button -->
-    <div class="control">
-      <button class="controlBtn" id="audioBtn">AUDIO</button>
-      <button class="controlBtn" id="powerBtn">START</button>
-    </div>
-
-  </div>
-
-  <footer>
-    <p> Made with love by Joel Baldapan :) </p>
-  </footer>
-
-
-  <!--audio used in game-->
-  <audio id="battle-music" src="audios/music/wildBattle-BW.mp3" loop></audio>
-  <audio id="sfx" src="audios/sfx/Water-sfx.mp3"></audio>
-  <!-- to prevent overlap -->
-  <audio id="hit-sfx" src="audios/sfx/Hit-sfx.mp3"></audio>
-</body>
-
+    <!--audio used in game-->
+    <audio id="battle-music" src="audios/music/wildBattle-BW.mp3" loop></audio>
+    <audio id="sfx" src="audios/sfx/Water-sfx.mp3"></audio>
+    <!-- to prevent overlap -->
+    <audio id="hit-sfx" src="audios/sfx/Hit-sfx.mp3"></audio>
+  </body>
 </html>

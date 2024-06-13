@@ -1,39 +1,111 @@
 // DOM Manipulation
-const scores = document.querySelector('h2');
-const selection = document.getElementById('select');
-const textbox = document.getElementById('textbox');
+const scores = document.querySelector("h2");
+const selection = document.getElementById("select");
+const textbox = document.getElementById("textbox");
 
-const battleView = document.getElementsByClassName('battle')[0];
-const player = document.getElementById('player');
-const computer = document.getElementById('computer');
-const pAttack = document.getElementById('p-attack');
-const cAttack = document.getElementById('c-attack');
-const pInfo = document.getElementsByClassName('p-info')[0];
-const cInfo = document.getElementsByClassName('c-info')[0];
+const battleView = document.getElementsByClassName("battle")[0];
+const player = document.getElementById("player");
+const computer = document.getElementById("computer");
+const pAttack = document.getElementById("p-attack");
+const cAttack = document.getElementById("c-attack");
+const pInfo = document.getElementsByClassName("p-info")[0];
+const cInfo = document.getElementsByClassName("c-info")[0];
 
-const rockBtn = document.getElementById('rockBtn');
-const paperBtn = document.getElementById('paperBtn');
-const scissorsBtn = document.getElementById('scissorsBtn');
+const rockBtn = document.getElementById("rockBtn");
+const paperBtn = document.getElementById("paperBtn");
+const scissorsBtn = document.getElementById("scissorsBtn");
 
-const audioBtn = document.getElementById('audioBtn');
-const audioPlayer = document.getElementById('battle-music');
-const sfxPlayer = document.getElementById('sfx');
-const hitPlayer = document.getElementById('hit-sfx');
-const powerBtn = document.getElementById('powerBtn');
+const audioBtn = document.getElementById("audioBtn");
+const audioPlayer = document.getElementById("battle-music");
+const sfxPlayer = document.getElementById("sfx");
+const hitPlayer = document.getElementById("hit-sfx");
+const powerBtn = document.getElementById("powerBtn");
 
-const pBar = document.getElementById('p-healthBar');
-const cBar = document.getElementById('c-healthBar');
-const pHealth = document.getElementById('p-health');
-const pHealthTotal = document.getElementById('p-healthTotal');
+const pBar = document.getElementById("p-healthBar");
+const cBar = document.getElementById("c-healthBar");
+const pHealth = document.getElementById("p-health");
+const pHealthTotal = document.getElementById("p-healthTotal");
 
-const winForm = document.getElementById('win-form');
-const inputArea = document.getElementById('num-wins');
-const saveBtn = document.getElementById('saveBtn');
+const winForm = document.getElementById("win-form");
+const inputArea = document.getElementById("num-wins");
+const saveBtn = document.getElementById("saveBtn");
 
+const logo = document.getElementById("logo");
 
-// WEB PAGE 
+// Scrollers
+const frontContainer = document.querySelector(".scroller-inner.front");
+const backContainer = document.querySelector(".scroller-inner.back");
+const scrollers = document.querySelectorAll(".scroller");
+
+// WEB PAGE
 // Initialize
-document.getElementById('logo').src = "images/header/signatureW.gif?a=" + Math.random()
+logo.src = "images/header/signatureW.gif?a=" + Math.random();
+logo.style.opacity = "1";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const numberOfImages = 12; // Total number of images
+
+  for (let i = 0; i < numberOfImages; i++) {
+    const frontImg = document.createElement("img");
+    frontImg.src = `images/scroller/front/${i}.gif`;
+    frontImg.alt = "pokemon";
+    frontContainer.appendChild(frontImg);
+
+    const backImg = document.createElement("img");
+    backImg.src = `images/scroller/back/${i}.gif`;
+    backImg.alt = "pokemon";
+    backContainer.appendChild(backImg);
+  }
+
+  // REDUCED MOTION
+  if (!window.matchMedia("(prefers-reduced-motion: reduce").matches) {
+    addAnimation();
+  }
+});
+
+// Add Animation
+function addAnimation() {
+  scrollers.forEach((scroller) => {
+    scroller.classList.add("animated");
+
+    const scrollerInner = scroller.querySelector(".scroller-inner");
+    const scrollerContent = Array.from(scrollerInner.children);
+
+    scrollerContent.forEach((item) => {
+      const duplicatedItem = item.cloneNode(true);
+      duplicatedItem.setAttribute("aria-hidden", true);
+      scrollerInner.appendChild(duplicatedItem);
+    });
+  });
+}
+
+// Flag to track if animation has been reset
+let animationReset = false;
+
+// Function to check if element is in viewport
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+// Function to handle scroll event
+function handleScroll() {
+  if (isInViewport(logo) && !animationReset) {
+    logo.src = logo.src; // Reset the src attribute to replay the GIF animation
+    animationReset = true; // Set flag to true once animation is reset
+  } else if (!isInViewport(logo)) {
+    animationReset = false; // Reset flag if element goes out of view
+  }
+}
+
+// Add scroll event listener to window
+window.addEventListener("scroll", handleScroll);
 
 // INITIALIZE
 let gameStarting = false;
@@ -71,7 +143,7 @@ function initialize() {
     toggleBattleBtns(true);
 
     // Add Input Area
-    winForm.style.display = 'block';
+    winForm.style.display = "block";
 
     // Remove animations and reset DOM
     player.classList.remove("faint");
@@ -81,7 +153,7 @@ function initialize() {
     textbox.textContent = "";
 
     // Reset audio
-    audioPlayer.src = `audios/music/wildBattle-BW.mp3`
+    audioPlayer.src = `audios/music/wildBattle-BW.mp3`;
     audioPlayer.pause();
   } else {
     gameStarting = true;
@@ -90,7 +162,7 @@ function initialize() {
     compScore = 0;
 
     // Remove Input Area
-    winForm.style.display = 'none';
+    winForm.style.display = "none";
 
     // Initialize starting animation and audio
     powerBtn.style.backgroundColor = "#dbf6dc";
@@ -99,8 +171,12 @@ function initialize() {
     controlAudio();
     renderHealth();
 
-    displayText(`${cName} challenges you to a battle! Go, ${pName}!`)
-    setTimeout(displayText, 3000, `Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`);
+    displayText(`${cName} challenges you to a battle! Go, ${pName}!`);
+    setTimeout(
+      displayText,
+      3000,
+      `Welcome to Rock, Paper, Scissors... with a spice of Pokémon! First to ${win} wins.`
+    );
     powerBtn.disabled = false; // Disable power buttons;
     playAnim("start-anim");
   }
@@ -118,7 +194,9 @@ function playRound(playerChoice) {
 
   // Draw
   if (playerChoice == compChoice) {
-    displayText(`${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`);
+    displayText(
+      `${pName} and ${cName} use ${getSymbol(playerChoice)}! So, it's a draw!`
+    );
     playBattleAnim("d");
 
     playSFX(getSymbol(compChoice) + "-sfx");
@@ -127,21 +205,30 @@ function playRound(playerChoice) {
   else if (
     (playerChoice === 0 && compChoice === 2) ||
     (playerChoice === 1 && compChoice === 0) ||
-    (playerChoice === 2 && compChoice === 1)) {
-    displayText(`${pName} uses ${getSymbol(playerChoice)}, and ${cName} uses ${getSymbol(compChoice)}! So, you win!`);
+    (playerChoice === 2 && compChoice === 1)
+  ) {
+    displayText(
+      `${pName} uses ${getSymbol(playerChoice)}, and ${cName} uses ${getSymbol(
+        compChoice
+      )}! So, you win!`
+    );
     playBattleAnim("p");
     renderBar("computer");
-    playerScore++
+    playerScore++;
 
     playSFX(getSymbol(playerChoice) + "-sfx");
     setTimeout(playHitSFX, 600);
   }
   // Computer wins!
   else {
-    displayText(`${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(playerChoice)}! So, you lose!`);
+    displayText(
+      `${cName} uses ${getSymbol(compChoice)}, and ${pName} uses ${getSymbol(
+        playerChoice
+      )}! So, you lose!`
+    );
     playBattleAnim("c");
     renderBar("player");
-    compScore++
+    compScore++;
 
     playSFX(getSymbol(compChoice) + "-sfx");
     setTimeout(playHitSFX, 600);
@@ -160,13 +247,17 @@ function checkWin() {
     if (playerScore > compScore) {
       // YOU WIN!
       computer.classList.add("faint");
-      audioPlayer.src = `audios/music/victoryMusic.mp3`
-      displayText(`${cName} fainted... Congratulations! You win! Press START to restart.`);
+      audioPlayer.src = `audios/music/victoryMusic.mp3`;
+      displayText(
+        `${cName} fainted... Congratulations! You win! Press START to restart.`
+      );
     } else {
       // YOU LOSE.
       player.classList.add("faint");
-      audioPlayer.src = `audios/music/lostMusic.mp3`
-      displayText(`${pName} fainted... Womp womp. You lose! Press START to restart.`);
+      audioPlayer.src = `audios/music/lostMusic.mp3`;
+      displayText(
+        `${pName} fainted... Womp womp. You lose! Press START to restart.`
+      );
     }
 
     // Play audio
@@ -177,7 +268,7 @@ function checkWin() {
 
     gameEnded = true;
   }
-};
+}
 
 // Function to play battle animations
 function playBattleAnim(winner) {
@@ -186,20 +277,20 @@ function playBattleAnim(winner) {
       player: "win",
       pAttack: "win",
       computer: "lose",
-      cAttack: "lose"
+      cAttack: "lose",
     },
     c: {
       player: "lose",
       pAttack: "lose",
       computer: "win",
-      cAttack: "win"
+      cAttack: "win",
     },
     d: {
       player: "draw",
       pAttack: "draw",
       computer: "draw",
-      cAttack: "draw"
-    }
+      cAttack: "draw",
+    },
   };
 
   if (classes[winner]) {
@@ -210,8 +301,13 @@ function playBattleAnim(winner) {
 
     [player, pAttack, computer, cAttack].forEach((element, index) => {
       const abrv = classes[winner];
-      const classNames = [abrv.player, abrv.pAttack, abrv.computer, abrv.cAttack];
-      element.addEventListener('animationend', () => {
+      const classNames = [
+        abrv.player,
+        abrv.pAttack,
+        abrv.computer,
+        abrv.cAttack,
+      ];
+      element.addEventListener("animationend", () => {
         removeClass(element, classNames[index]);
       });
     });
@@ -230,7 +326,6 @@ function removeClass(element, className) {
 // win
 // lose
 
-
 // Animation Toggles
 function playAnim(name) {
   // Add Animation Class
@@ -245,13 +340,12 @@ function playAnim(name) {
   // Listen and Remove Animation Class
   const elements = [player, computer, pAttack, cAttack, pInfo, cInfo];
 
-  elements.forEach(element => {
-    element.addEventListener('animationend', () => {
+  elements.forEach((element) => {
+    element.addEventListener("animationend", () => {
       element.classList.remove(name);
     });
   });
 }
-
 
 //Get Symbol
 function getSymbol(num) {
@@ -264,9 +358,8 @@ function getSymbol(num) {
 
 // Get Computer Choice
 function getCompChoice() {
-  return choice = Math.floor(Math.random() * 3);
+  return (choice = Math.floor(Math.random() * 3));
 }
-
 
 // Display Text on Textbox
 function displayText(text) {
@@ -278,7 +371,7 @@ function displayText(text) {
 function nextLetter(text) {
   if (index < text.length) {
     toggleBattleBtns(true);
-    powerBtn.disabled = true;;
+    powerBtn.disabled = true;
     textbox.textContent += text[index];
     index++;
     setTimeout(nextLetter, 25, text);
@@ -295,7 +388,6 @@ function nextLetter(text) {
   }
 }
 
-
 // Toggle Buttons
 function toggleBattleBtns(toggle) {
   rockBtn.disabled = toggle;
@@ -304,13 +396,11 @@ function toggleBattleBtns(toggle) {
   statusBtn.disabled = toggle;
 }
 
-
 // Update Attack Sprite
 function updateAttack(player, comp) {
-  pAttack.src = `images/attack/${getSymbol(player)}.png`
-  cAttack.src = `images/attack/${getSymbol(comp)}.png`
+  pAttack.src = `images/attack/${getSymbol(player)}.png`;
+  cAttack.src = `images/attack/${getSymbol(comp)}.png`;
 }
-
 
 // Render Bar
 function renderBar(hurt) {
@@ -327,55 +417,54 @@ function renderBar(hurt) {
   }
 }
 
-
 function renderHealth() {
-  cBar.style.width = `${((1-(playerScore / win)) * barWidth).toFixed(1)}em`;
-  pBar.style.width = `${((1-(compScore / win)) * barWidth).toFixed(1)}em`;
-  pHealth.textContent = `${((1-(compScore / win)) * baseHealth).toFixed(0)}`;
+  cBar.style.width = `${((1 - playerScore / win) * barWidth).toFixed(1)}em`;
+  pBar.style.width = `${((1 - compScore / win) * barWidth).toFixed(1)}em`;
+  pHealth.textContent = `${((1 - compScore / win) * baseHealth).toFixed(0)}`;
 
   // Render Red Health
-  if ((1 - (playerScore / win) < 0.2)) {
+  if (1 - playerScore / win < 0.2) {
     cBar.style.backgroundColor = "#c43939";
   } else {
     cBar.style.backgroundColor = "#39c440";
   }
-  if ((1 - (compScore / win) < 0.2)) {
+  if (1 - compScore / win < 0.2) {
     pBar.style.backgroundColor = "#c43939";
   } else {
     pBar.style.backgroundColor = "#39c440";
   }
 }
 
-
 // EVENT LISTENERS
 
 // Attack Buttons
-rockBtn.addEventListener('click', () => {
-  playRound(0)
+rockBtn.addEventListener("click", () => {
+  playRound(0);
 });
 
-paperBtn.addEventListener('click', () => {
-  playRound(1)
+paperBtn.addEventListener("click", () => {
+  playRound(1);
 });
 
-scissorsBtn.addEventListener('click', () => {
-  playRound(2)
+scissorsBtn.addEventListener("click", () => {
+  playRound(2);
 });
 
 // Status Button
-statusBtn.addEventListener('click', () => {
-  displayText(`First to ${win} wins! ${pName} has ${playerScore} points, and ${cName} has ${compScore} points!`)
+statusBtn.addEventListener("click", () => {
+  displayText(
+    `First to ${win} wins! ${pName} has ${playerScore} points, and ${cName} has ${compScore} points!`
+  );
 });
 
 // Power Button
-powerBtn.addEventListener('click', () => {
+powerBtn.addEventListener("click", () => {
   initialize();
 });
 
-
 // AUDIO
 // Toggle music
-audioBtn.addEventListener('click', () => {
+audioBtn.addEventListener("click", () => {
   if (toggleAudio) {
     toggleAudio = false;
     audioBtn.style.backgroundColor = "#f6f2db";
@@ -402,7 +491,7 @@ function controlAudio() {
 // Play SFX
 function playSFX(name) {
   if (toggleAudio) {
-    sfxPlayer.src = `audios/sfx/${name}.mp3`
+    sfxPlayer.src = `audios/sfx/${name}.mp3`;
     sfxPlayer.play();
   }
 }
@@ -414,9 +503,9 @@ function playHitSFX() {
 }
 
 // FORM SUBMISSION
-winForm.addEventListener('submit', (e) => {
+winForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  win = document.getElementById('num-wins').value;
+  win = document.getElementById("num-wins").value;
   inputArea.style.backgroundColor = "#dbf6dc";
   saveBtn.style.backgroundColor = "#dbf6dc";
   inputArea.style.borderColor = "#dbf6dc";
@@ -425,7 +514,7 @@ winForm.addEventListener('submit', (e) => {
 });
 
 // Detect change in form
-inputArea.addEventListener('input', () => {
+inputArea.addEventListener("input", () => {
   if (win !== undefined && inputArea.value !== win) {
     inputArea.style.backgroundColor = "#f6f2db";
     saveBtn.style.backgroundColor = "#f6f2db";
