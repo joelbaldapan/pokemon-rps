@@ -61,10 +61,12 @@ header {
   font-family: var(--font-main);
 
   color: var(--w-text);
-  padding: calc((100vh - (45rem)) / 2) 0 20rem;
+  padding: calc((100vh - (45rem)) / 2) 0 0;
+  margin-bottom: 30vh;
 }
 
 .logo {
+  display: block;
   width: min(45vw, 300px);
 }
 
@@ -127,8 +129,32 @@ footer {
 p {
   font-family: var(--font-main);
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-align: center;
+}
+
+#github {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#github-logo {
+  width: 2rem;
+}
+
+a {
+  display: inline;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: min(8vw, 1.5rem);
+  text-align: center;
+  color: var(--w-text);
+  padding: 0 0.5rem;
+}
+
+a:hover {
+  color: var(--pri-light);
 }
 
 /* -------- */
@@ -184,13 +210,13 @@ p {
 }
 
 #about-intro {
-  margin: 25vw 0 5vw;
+  margin: 30vh 0 5vw;
   text-align: center;
   font-family: var(--font-main);
   font-weight: 600;
   font-size: min(6vw, 3rem);
   color: var(--w-text);
-  line-height: 4.5rem;
+  line-height: 3rem;
 }
 
 .about-title {
@@ -199,16 +225,15 @@ p {
   font-size: min(5vw, 2rem);
   color: var(--w-text);
   line-height: 4rem;
+  padding-left: 1.5vw;
 }
 
-.about-title::before {
-  content: "+ ";
-  font-size: min(8vw, 2rem);
-  color: var(--w-text);
+.about-title:hover {
+  color: var(--pri-light);
 }
 
 .about-content ul {
-  padding-left: 5vw;
+  padding: 0 5vw;
 }
 
 strong {
@@ -225,7 +250,7 @@ strong {
   font-size: min(5vw, 1.5rem);
   color: var(--w-text);
   text-align: justify;
-  padding-bottom: 1vh;
+  padding-bottom: 2vh;
 }
 
 .about-content {
