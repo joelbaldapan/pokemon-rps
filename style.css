@@ -577,6 +577,10 @@ strong {
   cursor: pointer;
 }
 
+button {
+  background-color: var(--pri-back);
+}
+
 button:hover {
   filter: brightness(0.9);
   transition-duration: 0.1s;
