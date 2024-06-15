@@ -64,8 +64,11 @@ header {
   padding: calc((100vh - (45rem)) / 2) 0 20rem;
 }
 
-#logo {
+.logo {
   width: min(45vw, 300px);
+}
+
+#header-logo {
   opacity: 0;
 }
 
@@ -107,6 +110,7 @@ main.start-anim {
     background-size: 400%;
     background-position: right;
   }
+
   100% {
     background: var(--gradient);
     background-size: 400%;
@@ -167,6 +171,72 @@ p {
   to {
     transform: translate(-50%);
   }
+}
+
+/* ------- */
+/* DETAILS */
+/* ------- */
+.details {
+  width: 75vw;
+  cursor: pointer;
+  padding: 1rem 0;
+  border-bottom: 0.2rem solid var(--pri-lighter);
+}
+
+#about-intro {
+  margin: 25vw 0 5vw;
+  text-align: center;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: min(6vw, 3rem);
+  color: var(--w-text);
+  line-height: 4.5rem;
+}
+
+.about-title {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: min(5vw, 2rem);
+  color: var(--w-text);
+  line-height: 4rem;
+}
+
+.about-title::before {
+  content: "+ ";
+  font-size: min(8vw, 2rem);
+  color: var(--w-text);
+}
+
+.about-content ul {
+  padding-left: 5vw;
+}
+
+strong {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: min(5vw, 1.5rem);
+  color: var(--w-text);
+  text-align: justify;
+}
+
+.about-content li {
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: min(5vw, 1.5rem);
+  color: var(--w-text);
+  text-align: justify;
+  padding-bottom: 1vh;
+}
+
+.about-content {
+  max-height: 0;
+  transition: max-height 1s ease-out;
+  overflow: hidden;
+}
+
+.details.active .about-content {
+  transition: max-height 0.7s ease-in;
+  max-height: 200vh;
 }
 
 /* ----------- */

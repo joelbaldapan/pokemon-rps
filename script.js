@@ -30,8 +30,11 @@ const winForm = document.getElementById("win-form");
 const inputArea = document.getElementById("num-wins");
 const saveBtn = document.getElementById("saveBtn");
 
-const logo = document.getElementById("logo");
+const logo = document.getElementById("header-logo");
 const main = document.querySelector("main");
+const details = document.querySelectorAll(".details");
+
+console.log(details);
 
 // Scrollers
 const frontContainer = document.querySelector(".scroller-inner.front");
@@ -107,6 +110,14 @@ function handleScroll() {
 
 // Add scroll event listener to window
 window.addEventListener("scroll", handleScroll);
+document.addEventListener("DOMContentLoaded", handleScroll);
+
+// ACCORDION BUTTONS
+details.forEach(item => {
+  item.addEventListener("click", () => {
+    item.classList.toggle("active");
+  });
+});
 
 // INITIALIZE
 let gameStarting = false;

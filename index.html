@@ -17,7 +17,8 @@
   <body>
     <header>
       <img
-        id="logo"
+        class="logo"
+        id="header-logo"
         src="images/header/signatureW.gif"
         alt="By Joel Baldapan"
       />
@@ -57,17 +58,17 @@
 
           <div class="p-info">
             <img id="p-tag" src="images/UI/p-tag.png" alt="player tag" />
-            <span class="name">Lucario</span>
-            <span class="name level">40</span>
+            <strong class="name">Lucario</strong>
+            <strong class="name level">40</strong>
             <div class="healthBar" id="p-healthBar"></div>
-            <span class="health" id="p-health">100</span>
-            <span class="health" id="p-healthTotal">100</span>
+            <strong class="health" id="p-health">100</strong>
+            <strong class="health" id="p-healthTotal">100</strong>
           </div>
 
           <div class="c-info">
             <img id="c-tag" src="images/UI/c-tag.png" alt="computer tag" />
-            <span class="name">Charizard</span>
-            <span class="name level">40</span>
+            <strong class="name">Charizard</strong>
+            <strong class="name level">40</strong>
             <div class="healthBar" id="c-healthBar"></div>
           </div>
 
@@ -124,10 +125,252 @@
       </div>
     </main>
 
+    <section>
+      <h3 id="about-intro">About this project:</h3>
+
+      <section class="details">
+        <h4 class="about-title">HTML</h4>
+        <div class="about-content">
+          <ul>
+            <li>
+              <strong>HTML Structure:</strong> Understanding the basic structure
+              of an HTML document with &lt;!DOCTYPE html&gt;, &lt;html&gt;,
+              &lt;head&gt;, and &lt;body&gt; tags.
+            </li>
+            <li>
+              <strong>Meta Tags:</strong> Utilizing &lt;meta charset="UTF-8"&gt;
+              for character encoding and &lt;meta name="viewport"
+              content="width=device-width, initial-scale=1.0"&gt; for responsive
+              design.
+            </li>
+            <li>
+              <strong>Title Tag:</strong> Setting the document title with
+              &lt;title&gt; tag.
+            </li>
+            <li>
+              <strong>External Resources:</strong> Linking to external resources
+              with &lt;link&gt; tags for fonts and CSS (style.css).
+            </li>
+            <li>
+              <strong>Script Tag:</strong> Loading JavaScript asynchronously
+              using &lt;script src="script.js" defer&gt;&lt;/script&gt;.
+            </li>
+            <li>
+              <strong>Semantic Tags:</strong> Using semantic tags like
+              &lt;header&gt;, &lt;main&gt;, &lt;footer&gt;, and &lt;form&gt; for
+              better structure and accessibility.
+            </li>
+            <li>
+              <strong>Image Tag:</strong> Inserting images with &lt;img&gt; and
+              providing alternative text with alt attribute for accessibility.
+            </li>
+            <li>
+              <strong>Form Handling:</strong> Creating a form (&lt;form&gt;) to
+              accept user input (&lt;input&gt; and &lt;button&gt;) with basic
+              validation (required attribute).
+            </li>
+            <li>
+              <strong>Audio Tag:</strong> Embedding audio files (&lt;audio&gt;)
+              for background music (loop attribute) and sound effects.
+            </li>
+            <li>
+              Button Elements: Creating interactive buttons (&lt;button&gt;) for
+              user interaction.
+            </li>
+            <li>
+              CSS Styling: Referencing an external CSS file (style.css) for
+              styling the HTML elements.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="details">
+        <h4 class="about-title">CSS</h4>
+        <div class="about-content">
+          <ul>
+            <li>
+              <strong>@font-face Rule:</strong> Includes custom fonts using
+              @font-face. Specifies font format (format()) and URL (src) for the
+              font file.
+            </li>
+
+            <li>
+              <strong>CSS Variables:</strong> Defines variables within :root
+              selector (--variable-name). Creates themes with color variables.
+            </li>
+
+            <li>
+              <strong>Responsive Design:</strong> Uses min() function for
+              responsive font sizes. Sets maximum widths with max-width for
+              responsive layouts.
+            </li>
+
+            <li>
+              <strong>Box Model:</strong> Understands and applies box-sizing,
+              padding, margin, and border properties for layout control.
+            </li>
+
+            <li>
+              <strong>Flexbox Layout:</strong> Utilizes display: flex for
+              flexible layout alignment. Implements align-items,
+              justify-content, and flex-direction properties for layout
+              flexibility.
+            </li>
+
+            <li>
+              <strong>Grid Layout:</strong> Creates grid layouts with display:
+              grid. Defines grid templates with grid-template-rows and
+              grid-template-columns for structured layouts.
+            </li>
+
+            <li>
+              <strong>Animations:</strong> Defines animations using @keyframes.
+              Applies animations with animation property. Understands animation
+              timing functions (ease, linear, etc.) and delays.
+            </li>
+
+            <li>
+              <strong>Transitions:</strong> Uses transition to smoothly animate
+              property changes.
+            </li>
+
+            <li>
+              <strong>Pseudo-elements:</strong> Creates and styles ::before
+              pseudo-elements for additional content.
+            </li>
+
+            <li>
+              <strong>Media Queries:</strong> Utilizes viewport units (vw, vh)
+              for responsive design adjustments.
+            </li>
+
+            <li>
+              <strong>Layering and Positioning:</strong> Manages stacking order
+              with z-index. Positions elements absolutely using position:
+              absolute.
+            </li>
+
+            <li>
+              <strong>Text Styling:</strong> Applies different fonts with
+              font-family. Styles text using font-weight, font-size, text-align,
+              and text-shadow.
+            </li>
+
+            <li>
+              <strong>Button Styling:</strong> Customizes buttons with
+              background-color, border, and border-radius. Adds interactive
+              states with :hover and :active pseudo-classes.
+            </li>
+
+            <li>
+              <strong>Backgrounds:</strong> Applies background colors and
+              gradients. Uses background-size and background-position for
+              background styling.
+            </li>
+
+            <li>
+              <strong>Masks and Clipping:</strong> Creates masked elements with
+              -webkit-mask and mask properties.
+            </li>
+
+            <li>
+              <strong>Opacity and Visibility:</strong> Controls element
+              visibility using opacity. Manages element display with display
+              property.
+            </li>
+
+            <li>
+              <strong>CSS Selectors:</strong> Utilizes various selectors
+              including class (.), ID (#), and element selectors. Combines
+              selectors for specific targeting (e.g., .battle::before).
+            </li>
+
+            <li>
+              <strong>Text Transformations:</strong> Controls text appearance
+              with text-transform property.
+            </li>
+
+            <li>
+              <strong>Interactive Elements:</strong> Makes elements interactive
+              with cursor property. Disables buttons using :disabled
+              pseudo-class.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="details">
+        <h4 class="about-title">Javascript</h4>
+        <div class="about-content">
+          <ul>
+            <li>
+              <strong>DOM Manipulation:</strong> Interacting with HTML elements
+              using various methods like querySelector, getElementById,
+              createElement, and manipulating their attributes and content.
+            </li>
+            <li>
+              <strong>Event Handling:</strong> Utilizing event listeners
+              (addEventListener) to respond to user interactions such as clicks
+              and form submissions.
+            </li>
+            <li>
+              <strong>Conditional Logic:</strong> Using if, else if, and else
+              statements to control program flow based on different conditions
+              (e.g., game outcomes).
+            </li>
+            <li>
+              <strong>Functions:</strong> Defining and calling functions
+              (playRound, displayText, renderBar, etc.) to encapsulate and reuse
+              blocks of code.
+            </li>
+            <li>
+              <strong>Animation:</strong> Implementing CSS animations
+              (animationend event) to enhance visual feedback during gameplay.
+            </li>
+            <li>
+              <strong>Arrays and Loops:</strong> Working with arrays
+              (querySelectorAll, forEach) and loops (for, forEach) to iterate
+              through and manipulate collections of elements.
+            </li>
+            <li>
+              <strong>Audio Control:</strong> Managing audio playback (play,
+              pause) and setting audio attributes (currentTime) dynamically
+              based on game state and user preferences.
+            </li>
+            <li>
+              <strong>CSS Manipulation:</strong> Dynamically adding and removing
+              CSS classes (classList) to modify element styles and trigger
+              animations.
+            </li>
+            <li>
+              <strong>Form Handling:</strong> Handling form submissions
+              (addEventListener for submit) and input changes (addEventListener
+              for input) to update game settings dynamically.
+            </li>
+            <li>
+              <strong>Viewport Detection:</strong> Checking if elements are
+              within the viewport (getBoundingClientRect, isInViewport) to
+              trigger animations and behaviors.
+            </li>
+            <li>
+              <strong>Error Handling:</strong> Implementing error checking and
+              prevention strategies (e.g., ensuring proper initialization and
+              state management).
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
     <footer>
-      <p>Made with love by Joel Baldapan :)</p>
+      <img
+        class="logo"
+        src="images/header/signatureW.gif"
+        alt="By Joel Baldapan"
+      />
+      <p>Made by Joel Baldapan :)</p>
       <p>--still a work in progress--</p>
-      <p>to add: footer stuff here</p>
     </footer>
 
     <!--audio used in game-->
