@@ -37,6 +37,7 @@
   margin: 0;
   font-family: "PokemonBW";
   font-size: min(2vw, 15px);
+
 }
 
 html,
@@ -578,7 +579,7 @@ strong {
 }
 
 button {
-  background-color: var(--pri-back);
+  color: black;
 }
 
 button:hover {
